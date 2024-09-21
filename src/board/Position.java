@@ -7,6 +7,7 @@ public class Position {
   private int row;
   private int column;
 
+  // Ainda não sei se irei usar todos esses 3 construtores, mas eu acho que sim
   public Position(char columnLetter, int row) {
     this.row = row - 1; // Ajustando para posição em array
     this.column = convertColumnLetterToNumber(columnLetter);
