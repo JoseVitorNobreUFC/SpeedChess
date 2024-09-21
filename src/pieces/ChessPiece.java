@@ -3,23 +3,12 @@ package pieces;
 import board.Position;
 import enums.Color;
 
-public abstract class ChessPiece implements Piece {
-  private Position position;
-  private Color color;
+/** 
+ * Classe abstrata onde serão estipuladas algumas regras para uma peça de xadrez
+ */
+public abstract class ChessPiece extends Piece {
 
   public ChessPiece(Position position, Color color) {
-    this.position = position;
-    this.color = color;
+    super(position, color);
   }
-
-  @Override
-  public Position getPosition() {
-    return this.position;
-  }
-
-  @Override
-  public Color getColor() {
-    return this.color;
-  }
-
 }
