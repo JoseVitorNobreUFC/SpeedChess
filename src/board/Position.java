@@ -1,7 +1,5 @@
 package board;
 
-import pieces.Piece;
-
 /**
  * Classe que define como funciona as coordenadas do tabuleiro
  */
