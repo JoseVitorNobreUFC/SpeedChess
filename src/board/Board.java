@@ -47,7 +47,6 @@ public class Board {
   }
 
   public void movePiece(Position initialPosition, Position targetPosition) {
-    System.out.println(initialPosition.getRow() + " " + initialPosition.getColumn() + " -> " + targetPosition.getRow() + " " + targetPosition.getColumn());
     board[targetPosition.getRow()][targetPosition.getColumn()] = board[initialPosition.getRow()][initialPosition.getColumn()];
     board[initialPosition.getRow()][initialPosition.getColumn()] = null;
   }
