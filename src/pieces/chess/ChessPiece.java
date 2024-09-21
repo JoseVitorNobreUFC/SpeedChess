@@ -1,7 +1,8 @@
-package pieces;
+package pieces.chess;
 
 import board.Position;
 import enums.Color;
+import pieces.Piece;
 
 /** 
  * Classe abstrata onde serão estipuladas algumas regras para uma peça de xadrez
