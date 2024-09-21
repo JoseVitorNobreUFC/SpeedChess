@@ -43,5 +43,5 @@ public abstract class Piece {
    * Retorna as direções em que a peça pode se mover
    * @return Um vetor de posição, onde cada posição corresponde a um movimento valido
    */
-  public abstract ArrayList<String> getAvailableMoves(Piece[][] board, Position position);
+  public abstract ArrayList<String> getAvailableMoves(Piece[][] board);
 }

@@ -114,8 +114,6 @@ public class Board {
    */
   @Override
   public String toString() {
-    // É esperado B4, A3, B6, D4, E3, D6, F2
-    System.out.println(showPossibleMoves(board[4][2].getPosition()));
     String s = "    A    B    C    D    E    F    G    H\n";
     for (int i = 0; i < 8; i++) {
       s += (i + 1) + " ";
@@ -132,8 +130,14 @@ public class Board {
   }
 
 
+  /**
+   * Está função serve para exibir as possiveis movimentações de uma peça
+   * 
+   * @param position Posição da peça
+   * @return String contendo representação do tabuleiro com os movimentos possíveis
+   */
   public String showPossibleMoves(Position position) {
-    ArrayList<String> possibleMoves = board[position.getRow()][position.getColumn()].getAvailableMoves(board, position);
+    ArrayList<String> possibleMoves = board[position.getRow()][position.getColumn()].getAvailableMoves(board);
     String s = "    A    B    C    D    E    F    G    H\n";
     for (int i = 0; i < 8; i++) {
       s += (i + 1) + " ";

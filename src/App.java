@@ -9,6 +9,7 @@ public class App {
         Scanner ler = new Scanner(System.in);
         Board board = new Board();
         String position = "";
+        String confirmation = "";
         while (true) {
             try {
                 System.out.println(board);
@@ -16,12 +17,19 @@ public class App {
                 position = ler.nextLine();
                 Position initialPosition = new Position(position.charAt(0), Integer.parseInt(position.substring(1)));
                 
-                if(position.equals("exit")) break;
-
+                System.out.println(board.showPossibleMoves(initialPosition));
+                
+                System.out.println("Deseja realmente mover esta peça? [S/N]");
+                confirmation = ler.nextLine();
+                if(!confirmation.equalsIgnoreCase("s")) {
+                    continue;
+                }
+                
                 System.out.print("Digite a posição para onde deseja mover a peça: ");
                 position = ler.nextLine();
                 Position targetPosition = new Position(position.charAt(0), Integer.parseInt(position.substring(1)));
                 board.movePiece(initialPosition, targetPosition);
+                break;
             } catch (BoardException e) {
                 System.err.println("\nERRO!!!" + e.getMessage());
             } catch (PieceException e) {

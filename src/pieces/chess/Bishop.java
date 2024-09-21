@@ -12,14 +12,17 @@ public class Bishop extends ChessPiece {
     super(position, color);
   }
 
+  /**
+   * Função que vai retornar as posições disponíveis para a peça
+   */
   @Override
-  public ArrayList<String> getAvailableMoves(Piece[][] board, Position position) {
+  public ArrayList<String> getAvailableMoves(Piece[][] board) {
     ArrayList<String> availablePositions = new ArrayList<String>();
     
-    availablePositions.addAll(getMovesInADirection(board, position, -1, -1));
-    availablePositions.addAll(getMovesInADirection(board, position, -1, 1));
-    availablePositions.addAll(getMovesInADirection(board, position, 1, -1));
-    availablePositions.addAll(getMovesInADirection(board, position, 1, 1));
+    availablePositions.addAll(getMovesInADirection(board, this.getPosition(), -1, -1));
+    availablePositions.addAll(getMovesInADirection(board, this.getPosition(), -1, 1));
+    availablePositions.addAll(getMovesInADirection(board, this.getPosition(), 1, -1));
+    availablePositions.addAll(getMovesInADirection(board, this.getPosition(), 1, 1));
     
     return availablePositions;
   }

@@ -13,7 +13,7 @@ public class Knight extends ChessPiece {
   }
 
   @Override
-  public ArrayList<String> getAvailableMoves(Piece[][] board, Position position) {
+  public ArrayList<String> getAvailableMoves(Piece[][] board) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'getAvailableMoves'");
   }
