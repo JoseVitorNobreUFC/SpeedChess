@@ -1,7 +1,10 @@
 package pieces.chess;
 
+import java.util.ArrayList;
+
 import board.Position;
 import enums.Color;
+import pieces.Piece;
 
 /**
  * Classe que define o comportamento de um peão
@@ -13,13 +16,7 @@ public class Pawn extends ChessPiece{
   }
 
   @Override
-  public void move(Position position) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'move'");
-  }
-
-  @Override
-  public Position[] getAvailableMoves() {
+  public ArrayList<String> getAvailableMoves(Piece[][] board, Position position) {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'getAvailableMoves'");
   }

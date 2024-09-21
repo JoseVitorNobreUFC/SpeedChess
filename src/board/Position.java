@@ -13,13 +13,14 @@ public class Position {
     this.column = convertColumnLetterToNumber(columnLetter);
   }
 
-  public Position(int column, int row) {
+  public Position(int row, int column) {
     this.row = row - 1; // Ajustando para posição em array
-    this.column = column;
+    this.column = column - 1;
   }
 
   public Position() {
-    this(0, 0);
+    this.row = 0;
+    this.column = 0;
   }
 
   public int getRow() {
@@ -35,7 +36,7 @@ public class Position {
   }
 
   public void setColumn(int column) {
-    this.column = column;
+    this.column = column - 1;
   }
 
 
@@ -61,6 +62,6 @@ public class Position {
   @Override
   public String toString() {
     char columnLetter = (char) (column + 'A');
-    return "Position: " + columnLetter + (row + 1);
+    return "" + columnLetter + (row + 1);
   }
 }

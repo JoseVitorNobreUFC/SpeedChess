@@ -1,5 +1,7 @@
 package pieces;
 
+import java.util.ArrayList;
+
 import board.Position;
 import enums.Color;
 
@@ -27,7 +29,7 @@ public abstract class Piece {
    * Move a peça para uma nova posição
    * @param position Nova posição da peça
    */
-  public abstract void move(Position position);
+  // public abstract void move(Position position);
 
   /**
    * Retorna a cor da peça
@@ -41,5 +43,5 @@ public abstract class Piece {
    * Retorna as direções em que a peça pode se mover
    * @return Um vetor de posição, onde cada posição corresponde a um movimento valido
    */
-  public abstract Position[] getAvailableMoves();
+  public abstract ArrayList<String> getAvailableMoves(Piece[][] board, Position position);
 }
