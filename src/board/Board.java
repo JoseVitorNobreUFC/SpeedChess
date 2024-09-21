@@ -45,6 +45,13 @@ public class Board {
     board[7][6] = new Knight(new Position(6, 7), Color.WHITE);
     board[7][7] = new Rook(new Position(7, 7), Color.WHITE);
   }
+
+  public void movePiece(Position initialPosition, Position targetPosition) {
+    System.out.println(initialPosition.getRow() + " " + initialPosition.getColumn() + " -> " + targetPosition.getRow() + " " + targetPosition.getColumn());
+    board[targetPosition.getRow()][targetPosition.getColumn()] = board[initialPosition.getRow()][initialPosition.getColumn()];
+    board[initialPosition.getRow()][initialPosition.getColumn()] = null;
+  }
+  
   @Override
   public String toString() {
     String s = "    A    B    C    D    E    F    G    H\n";

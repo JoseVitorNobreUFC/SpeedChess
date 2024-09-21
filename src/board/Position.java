@@ -44,8 +44,8 @@ public class Position {
    * @return Coluna em número
    */
   private int convertColumnLetterToNumber(char columnLetter) {
-    columnLetter = Character.toLowerCase(columnLetter);
-    return columnLetter - 'a';
+    char lowerCaseLetter = Character.toLowerCase(columnLetter);
+    return lowerCaseLetter - 'a';
   }
 
   /**
