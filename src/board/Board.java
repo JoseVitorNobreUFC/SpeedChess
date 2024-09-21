@@ -1,6 +1,8 @@
 package board;
 
 import enums.Color;
+import exceptions.BoardException;
+import exceptions.PositionException;
 import pieces.Piece;
 import pieces.chess.*;
 
@@ -47,10 +49,22 @@ public class Board {
   }
 
   public void movePiece(Position initialPosition, Position targetPosition) {
+    if(!Position.isValidPosition(targetPosition) || !Position.isValidPosition(initialPosition)) {
+      throw new BoardException("Posição fora do tabuleiro");
+    }
+
+    if(isPositionNull(initialPosition)) {
+      throw new PositionException("Esta posição não contem peça");
+    }
+
     board[targetPosition.getRow()][targetPosition.getColumn()] = board[initialPosition.getRow()][initialPosition.getColumn()];
     board[initialPosition.getRow()][initialPosition.getColumn()] = null;
   }
   
+  private boolean isPositionNull(Position position) {
+    return board[position.getRow()][position.getColumn()] == null;
+  }
+
   @Override
   public String toString() {
     String s = "    A    B    C    D    E    F    G    H\n";

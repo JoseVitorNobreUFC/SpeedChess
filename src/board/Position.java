@@ -37,6 +37,11 @@ public class Position {
     this.column = column;
   }
 
+
+  public static boolean isValidPosition(Position position) {
+    return position.getRow() >= 0 && position.getRow() < 8 && position.getColumn() >= 0 && position.getColumn() < 8;
+  }
+
   /**
    * Converte uma coluna em letra para um número, independente se a letra for maiuscula ou minuscula
    * 
