@@ -39,6 +39,12 @@ public class Position {
     this.column = column - 1;
   }
 
+  // Usaremos depois
+  public void setPosition(Position position) {
+    this.row = position.getRow();
+    this.column = position.getColumn();
+  }
+
 
   public static boolean isValidPosition(Position position) {
     return position.getRow() >= 0 && position.getRow() < 8 && position.getColumn() >= 0 && position.getColumn() < 8;

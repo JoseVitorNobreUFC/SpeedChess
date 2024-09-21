@@ -95,7 +95,7 @@ public class Board {
    * @param initialPosition Posição inicial da peça
    * @param targetPosition  Posição final da peça
    */
-  public void movePiece(Position initialPosition, Position targetPosition) {
+  public void movePiece(Position initialPosition, Position targetPosition) { // Lembrar de mover internamente a posição da peça
     this.analyseMovement(initialPosition, targetPosition);
 
     board[targetPosition.getRow()][targetPosition.getColumn()] = board[initialPosition.getRow()][initialPosition
