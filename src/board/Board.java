@@ -53,9 +53,12 @@ public class Board {
     board[7][6] = new Knight(new Position(8, 7), Color.BLACK);
     board[7][7] = new Rook(new Position(8, 8), Color.BLACK);
 
+    // Instancia de teste
     board[4][2] = new Bishop(new Position(5, 3), Color.BLACK);
     board[4][6] = new Rook(new Position(5, 7), Color.WHITE);
-    board[4][4] = new Queen(new Position(5, 5), Color.BLACK);
+
+    // Nessa posição ele pode se mover para D3, F3, C4, C6, G4, G6, D7 e F7
+    board[5][4] = new Knight(new Position(6, 5), Color.BLACK);
   }
 
   /**
@@ -146,9 +149,9 @@ public class Board {
       for (int j = 0; j < 8; j++) {
         if(possibleMoves.contains(i + "" + j)) {
           if(board[i][j] != null) {
-            s += "(" + board[i][j] + " ) ";
+            s += "⟪" + board[i][j] + " ⟫ ";
           } else {
-            s += "(  ) ";
+            s += "⟪  ⟫ ";
           }
         } else if (board[i][j] != null) {
             s += "[" + board[i][j] + " ] ";
