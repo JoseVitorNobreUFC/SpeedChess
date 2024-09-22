@@ -12,9 +12,6 @@ public class Bishop extends ChessPiece {
     super(position, color);
   }
 
-  /**
-   * Função que vai retornar as posições disponíveis para a peça
-   */
   @Override
   public ArrayList<String> getAvailableMoves(Piece[][] board) {
     ArrayList<String> availablePositions = new ArrayList<String>();

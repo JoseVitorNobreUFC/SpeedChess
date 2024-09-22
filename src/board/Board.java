@@ -54,6 +54,7 @@ public class Board {
     board[7][7] = new Rook(new Position(8, 8), Color.BLACK);
 
     board[4][2] = new Bishop(new Position(5, 3), Color.BLACK);
+    board[4][6] = new Rook(new Position(5, 7), Color.WHITE);
   }
 
   /**
