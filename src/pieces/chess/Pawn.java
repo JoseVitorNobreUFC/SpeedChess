@@ -11,18 +11,18 @@ import pieces.Piece;
  */
 public class Pawn extends ChessPiece{
 
-  public Pawn(Position position, Color color) {
-    super(position, color);
+  public Pawn(Color color) {
+    super(color);
   }
 
   @Override
-  public ArrayList<String> getAvailableMoves(Piece[][] board) {
+  public ArrayList<String> getAvailableMoves(Piece[][] board, Position position) {
     ArrayList<String> availablePositions = new ArrayList<String>();
 
     if(this.getColor().equals(Color.WHITE)) {
-      availablePositions.addAll(getMovesInADirection(board, 1));
+      availablePositions.addAll(getMovesInADirection(board, position, 1));
     } else{
-      availablePositions.addAll(getMovesInADirection(board, -1));
+      availablePositions.addAll(getMovesInADirection(board, position, -1));
     }
     return availablePositions;
   }
@@ -33,14 +33,15 @@ public class Pawn extends ChessPiece{
    * lista de posições disponíveis
    * 
    * @param board Tabuleiro do jogo
+   * @param position posição da peça a ser analisada
    * @param rowDirection direção da linha	-1 para cima, 1 para baixo, 0 não aplica direção
    * @return lista de posições disponíveis
    */
-  private ArrayList<String> getMovesInADirection(Piece[][] board, int rowDirection) {
+  private ArrayList<String> getMovesInADirection(Piece[][] board, Position position, int rowDirection) {
     ArrayList<String> availablePositions = new ArrayList<String>();
     
-    int row = this.getPosition().getRow() + rowDirection;
-    int column = this.getPosition().getColumn();
+    int row = position.getRow() + rowDirection;
+    int column = position.getColumn();
     if(row >= 0 && row < 8) {
       if(board[row][column] == null) {
         availablePositions.add(row + "" + column);

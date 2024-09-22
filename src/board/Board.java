@@ -4,14 +4,13 @@ import java.util.ArrayList;
 
 import enums.Color;
 import exceptions.*;
-import pieces.Piece;
 import pieces.chess.*;
 
 public class Board {
-  private Piece[][] board; // Primeiro [] representa a linha e o Segundo [] representa a coluna
+  private ChessPiece[][] board; // Primeiro [] representa a linha e o Segundo [] representa a coluna
 
   public Board() {
-    board = new Piece[8][8];
+    board = new ChessPiece[8][8];
     for (int i = 0; i < 8; i++) {
       for (int j = 0; j < 8; j++) {
         board[i][j] = null;
@@ -29,29 +28,29 @@ public class Board {
   private void initBoard() {
     // Criando os peões
     for (int i = 0; i < 8; i++) {
-      board[1][i] = new Pawn(new Position(2, i + 1), Color.WHITE);
-      board[6][i] = new Pawn(new Position(7, i + 1), Color.BLACK);
+      board[1][i] = new Pawn(Color.WHITE);
+      board[6][i] = new Pawn(Color.BLACK);
     }
 
     // Criando as peças brancas
-    board[0][0] = new Rook(new Position(1, 1), Color.WHITE);
-    board[0][1] = new Knight(new Position(1, 2), Color.WHITE);
-    board[0][2] = new Bishop(new Position(1, 3), Color.WHITE);
-    board[0][3] = new Queen(new Position(1, 4), Color.WHITE);
-    board[0][4] = new King(new Position(1, 5), Color.WHITE);
-    board[0][5] = new Bishop(new Position(1, 6), Color.WHITE);
-    board[0][6] = new Knight(new Position(1, 7), Color.WHITE);
-    board[0][7] = new Rook(new Position(1, 8), Color.WHITE);
+    board[0][0] = new Rook(Color.WHITE);
+    board[0][1] = new Knight(Color.WHITE);
+    board[0][2] = new Bishop(Color.WHITE);
+    board[0][3] = new Queen(Color.WHITE);
+    board[0][4] = new King(Color.WHITE);
+    board[0][5] = new Bishop(Color.WHITE);
+    board[0][6] = new Knight(Color.WHITE);
+    board[0][7] = new Rook(Color.WHITE);
 
     // Criando as peças pretas
-    board[7][0] = new Rook(new Position(8, 1), Color.BLACK);
-    board[7][1] = new Knight(new Position(8, 2), Color.BLACK);
-    board[7][2] = new Bishop(new Position(8, 3), Color.BLACK);
-    board[7][3] = new Queen(new Position(8, 4), Color.BLACK);
-    board[7][4] = new King(new Position(8, 5), Color.BLACK);
-    board[7][5] = new Bishop(new Position(8, 6), Color.BLACK);
-    board[7][6] = new Knight(new Position(8, 7), Color.BLACK);
-    board[7][7] = new Rook(new Position(8, 8), Color.BLACK);
+    board[7][0] = new Rook(Color.BLACK);
+    board[7][1] = new Knight(Color.BLACK);
+    board[7][2] = new Bishop(Color.BLACK);
+    board[7][3] = new Queen(Color.BLACK);
+    board[7][4] = new King(Color.BLACK);
+    board[7][5] = new Bishop(Color.BLACK);
+    board[7][6] = new Knight(Color.BLACK);
+    board[7][7] = new Rook(Color.BLACK);
 
   }
 
@@ -104,6 +103,9 @@ public class Board {
   public void movePiece(Position initialPosition, Position targetPosition) { // Lembrar de mover internamente a posição da peça
     this.analyseMovement(initialPosition, targetPosition);
 
+    if(board[initialPosition.getRow()][initialPosition.getColumn()].isFirstMove()) {
+      board[initialPosition.getRow()][initialPosition.getColumn()].takeFirstMove();
+    }
     board[targetPosition.getRow()][targetPosition.getColumn()] = board[initialPosition.getRow()][initialPosition
         .getColumn()];
     board[initialPosition.getRow()][initialPosition.getColumn()] = null;
@@ -143,7 +145,7 @@ public class Board {
    */
   public String showPossibleMoves(Position position) {
     this.analyseMovement(position);
-    ArrayList<String> possibleMoves = board[position.getRow()][position.getColumn()].getAvailableMoves(board);
+    ArrayList<String> possibleMoves = board[position.getRow()][position.getColumn()].getAvailableMoves(board, position);
     String s = "    A    B    C    D    E    F    G    H\n";
     for (int i = 0; i < 8; i++) {
       s += (i + 1) + " ";

@@ -9,27 +9,12 @@ import enums.Color;
  * Classe abstrata que define as funções base de uma peça, seja ela de xadrez ou de outro jogo de tabuleiro
  */
 public abstract class Piece {
-  private Position position;
   private Color color;
 
-  public Piece(Position position, Color color) {
-    this.position = position;
+  public Piece(Color color) {
     this.color = color;
   }
 
-  /**
-   * Retorna a posição da peça
-   * @return Posição da peça no tabuleiro
-   */
-  public Position getPosition(){
-    return this.position;
-  }
-
-  /**
-   * Move a peça para uma nova posição
-   * @param position Nova posição da peça
-   */
-  // public abstract void move(Position position);
 
   /**
    * Retorna a cor da peça
@@ -41,7 +26,9 @@ public abstract class Piece {
 
   /**
    * Retorna as direções em que a peça pode se mover
+   * @param board Tabuleiro do jogo
+   * @param position Posição da peça
    * @return Um vetor de posição, onde cada posição corresponde a um movimento valido
    */
-  public abstract ArrayList<String> getAvailableMoves(Piece[][] board);
+  public abstract ArrayList<String> getAvailableMoves(Piece[][] board, Position position);
 }

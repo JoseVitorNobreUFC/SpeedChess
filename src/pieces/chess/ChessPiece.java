@@ -1,6 +1,5 @@
 package pieces.chess;
 
-import board.Position;
 import enums.Color;
 import pieces.Piece;
 
@@ -10,8 +9,8 @@ import pieces.Piece;
 public abstract class ChessPiece extends Piece {
   protected boolean firstMove = true;
 
-  public ChessPiece(Position position, Color color) {
-    super(position, color);
+  public ChessPiece(Color color) {
+    super(color);
   }
 
   public boolean isFirstMove() {
