@@ -55,6 +55,7 @@ public class Board {
 
     board[4][2] = new Bishop(new Position(5, 3), Color.BLACK);
     board[4][6] = new Rook(new Position(5, 7), Color.WHITE);
+    board[4][4] = new Queen(new Position(5, 5), Color.BLACK);
   }
 
   /**
