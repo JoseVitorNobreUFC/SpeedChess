@@ -72,6 +72,13 @@ public class Board {
     if (isPositionNull(initialPosition)) {
       throw new PositionException("Esta posição não contem peça");
     }
+    
+    ArrayList<String> possibleMoves = board[initialPosition.getRow()][initialPosition.getColumn()].getAvailableMoves(board, initialPosition);
+    int row = targetPosition.getRow();
+    int column = targetPosition.getColumn();
+    if(!possibleMoves.contains(row + "" + column)) {
+      throw new PieceException("Este movimento não é permitido");
+    }
   }
 
   /**

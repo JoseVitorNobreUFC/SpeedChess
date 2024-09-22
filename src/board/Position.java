@@ -68,6 +68,6 @@ public class Position {
   @Override
   public String toString() {
     char columnLetter = (char) (column + 'A');
-    return "" + columnLetter + (row + 1);
+    return "Position:" + columnLetter + (row + 1);
   }
 }
