@@ -53,12 +53,6 @@ public class Board {
     board[7][6] = new Knight(new Position(8, 7), Color.BLACK);
     board[7][7] = new Rook(new Position(8, 8), Color.BLACK);
 
-    // Instancia de teste
-    board[4][5] = new Bishop(new Position(5, 6), Color.BLACK);
-    board[5][5] = new King(new Position(6, 6), Color.WHITE);
-
-    // Nessa posição ele pode se mover para D3, F3, C4, C6, G4, G6, D7 e F7
-    board[5][4] = new Knight(new Position(6, 5), Color.BLACK);
   }
 
   /**

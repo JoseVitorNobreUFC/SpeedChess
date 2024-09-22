@@ -11,8 +11,6 @@ import pieces.Piece;
  */
 public class Pawn extends ChessPiece{
 
-  private boolean firstMove = true;
-
   public Pawn(Position position, Color color) {
     super(position, color);
   }
@@ -63,9 +61,5 @@ public class Pawn extends ChessPiece{
   @Override
   public String toString() {
     return this.getColor().equals(Color.WHITE) ? "♟" : "♙";
-  }
-
-  public void tookFirstMove() {
-    this.firstMove = false;
   }
 }

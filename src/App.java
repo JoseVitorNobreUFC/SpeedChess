@@ -23,13 +23,15 @@ public class App {
                 confirmation = ler.nextLine();
                 if(!confirmation.equalsIgnoreCase("s")) {
                     continue;
+                } else if(confirmation.equalsIgnoreCase("exit")) {
+                    break;
                 }
                 
                 System.out.print("Digite a posição para onde deseja mover a peça: ");
                 position = ler.nextLine();
                 Position targetPosition = new Position(position.charAt(0), Integer.parseInt(position.substring(1)));
                 board.movePiece(initialPosition, targetPosition);
-                break;
+
             } catch (BoardException e) {
                 System.err.println("\nERRO!!!" + e.getMessage());
             } catch (PieceException e) {
