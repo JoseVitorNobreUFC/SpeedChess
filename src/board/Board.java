@@ -69,10 +69,7 @@ public class Board {
    * @param targetPosition  Posição final da peça
    * @throws BoardException    Caso uma das posições seja fora do tabuleiro
    * @throws PositionException Caso a posição inicial for nula
-   * @throws PieceException    Caso as peças contidas na posição inicial e final
-   *                           forem aliadas
-   * @throws PlayerException   Caso na hora de um jogador movimentar uma peça que
-   *                           não seja a dele
+   * @throws PieceException    Caso o movimento da peça seja invalido
    */
   private void analyseMovement(Position initialPosition, Position targetPosition) {
     if (!Position.isValidPosition(targetPosition) || !Position.isValidPosition(initialPosition)) {
@@ -82,16 +79,24 @@ public class Board {
     if (isPositionNull(initialPosition)) {
       throw new PositionException("Esta posição não contem peça");
     }
+  }
 
-    if (this.board[targetPosition.getRow()][targetPosition.getColumn()] != null) {
-      Piece targetPiece = this.board[targetPosition.getRow()][targetPosition.getColumn()];
-      Piece initialPiece = this.board[initialPosition.getRow()][initialPosition.getColumn()];
-
-      if (targetPiece.getColor().equals(initialPiece.getColor())) {
-        throw new PieceException("Está posição contem uma peça aliada");
-      }
+  /**
+   * Essa função tem como objetivo analisar a movimentação de uma peça, lançando
+   * uma exceção caso o movimento seja inválido
+   * 
+   * @param position Posição inicial da peça
+   * @throws BoardException    Caso uma das posições seja fora do tabuleiro
+   * @throws PositionException Caso a posição inicial for nula
+   */
+  private void analyseMovement(Position position) {
+    if (!Position.isValidPosition(position)) {
+      throw new BoardException("Posição fora do tabuleiro");
     }
 
+    if (isPositionNull(position)) {
+      throw new PositionException("Esta posição não contem peça");
+    }
   }
 
   /**
@@ -134,7 +139,6 @@ public class Board {
     return s;
   }
 
-
   /**
    * Está função serve para exibir as possiveis movimentações de uma peça
    * 
@@ -142,6 +146,7 @@ public class Board {
    * @return String contendo representação do tabuleiro com os movimentos possíveis
    */
   public String showPossibleMoves(Position position) {
+    this.analyseMovement(position);
     ArrayList<String> possibleMoves = board[position.getRow()][position.getColumn()].getAvailableMoves(board);
     String s = "    A    B    C    D    E    F    G    H\n";
     for (int i = 0; i < 8; i++) {
