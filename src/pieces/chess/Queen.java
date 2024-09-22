@@ -31,7 +31,7 @@ public class Queen extends ChessPiece {
     return availablePositions;
   }
   
-    /**
+  /**
    * Nessa função você vai fornecer o tabuleiro para o algoritmo encontrar os limites da movimentação, em 
    * seguida vai fornecer a posição da peça e a direção que a mesma vai se mover. Por fim, o algoritmo vai retornar a
    * lista de posições disponíveis

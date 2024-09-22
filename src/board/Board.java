@@ -54,8 +54,8 @@ public class Board {
     board[7][7] = new Rook(new Position(8, 8), Color.BLACK);
 
     // Instancia de teste
-    board[4][2] = new Bishop(new Position(5, 3), Color.BLACK);
-    board[5][6] = new Rook(new Position(6, 7), Color.WHITE);
+    board[4][5] = new Bishop(new Position(5, 6), Color.BLACK);
+    board[5][5] = new King(new Position(6, 6), Color.WHITE);
 
     // Nessa posição ele pode se mover para D3, F3, C4, C6, G4, G6, D7 e F7
     board[5][4] = new Knight(new Position(6, 5), Color.BLACK);
@@ -82,8 +82,10 @@ public class Board {
   }
 
   /**
-   * Essa função tem como objetivo analisar a movimentação de uma peça, lançando
-   * uma exceção caso o movimento seja inválido
+   * Essa função tem como objetivo analisar a posição de uma peça, lançando
+   * uma exceção caso o movimento seja inválido, em comparação com a função anterior
+   * essa é mais usada quando for analisar os movimentos de uma peça veja a função
+   * @see Board#showPossibleMoves Onde essa função é chamada
    * 
    * @param position Posição inicial da peça
    * @throws BoardException    Caso uma das posições seja fora do tabuleiro
