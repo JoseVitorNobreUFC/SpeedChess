@@ -13,9 +13,12 @@ public class Position {
     this.column = convertColumnLetterToNumber(columnLetter);
   }
 
-  public Position(int row, int column) {
-    this.row = row - 1; // Ajustando para posição em array
-    this.column = column - 1; // Ajustando para posição em array
+  public Position(String position) {
+    if(position.length() != 2) {
+      throw new IllegalArgumentException("Posição inválida: " + position);
+    }
+    this.row = Integer.parseInt(position.substring(1)) - 1; // Ajustando para posição em array
+    this.column = convertColumnLetterToNumber(position.charAt(0));
   }
 
   public int getRow() {

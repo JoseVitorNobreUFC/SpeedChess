@@ -31,7 +31,7 @@ public class App {
                 System.out.println(game);
                 System.out.print("Digite a posição da peça que voce deseja mover " + playerToMove + ": ");
                 position = ler.nextLine();
-                Position initialPosition = new Position(position.charAt(0), Integer.parseInt(position.substring(1)));
+                Position initialPosition = new Position(position);
                 
                 System.out.println(game.showPossibleMoves(initialPosition, playerToMove));
                 System.out.println("Deseja realmente mover esta peça? [S/N]");
@@ -44,7 +44,7 @@ public class App {
                 
                 System.out.print("Digite a posição para onde deseja mover a peça: ");
                 position = ler.nextLine();
-                Position targetPosition = new Position(position.charAt(0), Integer.parseInt(position.substring(1)));
+                Position targetPosition = new Position(position);
                 game.movePiece(initialPosition, targetPosition);
 
                 if(game.endGame(targetPosition) != null) {
@@ -59,6 +59,8 @@ public class App {
             } catch (PlayerException e) {
                 System.err.println("\nERRO!!!" + e.getMessage());
             } catch (PositionException e) {
+                System.err.println("\nERRO!!!" + e.getMessage());
+            } catch (IllegalArgumentException e) {
                 System.err.println("\nERRO!!!" + e.getMessage());
             }
         }
