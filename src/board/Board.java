@@ -6,6 +6,9 @@ import enums.Color;
 import exceptions.*;
 import pieces.chess.*;
 
+/**
+ * Classe que define como funciona o tabuleiro do xadrez
+ */
 public class Board {
   private ChessPiece[][] board; // Primeiro [] representa a linha e o Segundo [] representa a coluna
 
@@ -172,5 +175,10 @@ public class Board {
       s += "\n";
     }
     return s;
+  }
+
+  public ChessPiece getPiece(Position position) {
+    this.analyseMovement(position);
+    return board[position.getRow()][position.getColumn()];
   }
 }
