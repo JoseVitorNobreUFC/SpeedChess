@@ -15,12 +15,7 @@ public class Position {
 
   public Position(int row, int column) {
     this.row = row - 1; // Ajustando para posição em array
-    this.column = column - 1;
-  }
-
-  public Position() {
-    this.row = 0;
-    this.column = 0;
+    this.column = column - 1; // Ajustando para posição em array
   }
 
   public int getRow() {
@@ -36,13 +31,7 @@ public class Position {
   }
 
   public void setColumn(int column) {
-    this.column = column - 1;
-  }
-
-  // Usaremos depois
-  public void setPosition(Position position) {
-    this.row = position.getRow();
-    this.column = position.getColumn();
+    this.column = column - 1; // Ajustando para posição em array
   }
 
 
