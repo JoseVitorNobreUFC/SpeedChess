@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 import board.Position;
 
+/**
+ * Algumas otimizações precisam ser feitas aqui
+ */
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner ler = new Scanner(System.in);
@@ -17,8 +20,9 @@ public class App {
 
         Game game = new Game(new Player(player1), new Player(player2));
         int i = 0;
-        String position = "";
-        String confirmation = "";
+        String move = "";
+        String action = "";
+        Position initialPosition, targetPosition;
         while (true) {
             try {
                 Player playerToMove;
@@ -30,22 +34,29 @@ public class App {
                 
                 System.out.println(game);
                 System.out.print("Digite a posição da peça que voce deseja mover " + playerToMove + ": ");
-                position = ler.nextLine();
-                Position initialPosition = new Position(position);
-                
-                System.out.println(game.showPossibleMoves(initialPosition, playerToMove));
-                System.out.println("Deseja realmente mover esta peça? [S/N]");
-                confirmation = ler.nextLine();
-                if(!confirmation.equalsIgnoreCase("s")) {
-                    continue;
-                } else if(confirmation.equalsIgnoreCase("exit")) {
-                    break;
+                move = ler.nextLine();
+
+                if(move.length() == 4) {
+                    initialPosition = new Position(move.substring(0, 2));
+                    targetPosition = new Position(move.substring(2, 4));
+                } else {
+                    initialPosition = new Position(move);
+                    
+                    System.out.println(game.showPossibleMoves(initialPosition, playerToMove));
+                    System.out.println("Deseja realmente mover esta peça? [S/N]");
+                    action = ler.nextLine();
+                    if(!action.equalsIgnoreCase("s")) {
+                        continue;
+                    } else if(action.equalsIgnoreCase("exit")) {
+                        break;
+                    }
+
+                    System.out.print("Digite a posição para onde deseja mover a peça: ");
+                    move = ler.nextLine();
+                    targetPosition = new Position(move);
                 }
-                
-                System.out.print("Digite a posição para onde deseja mover a peça: ");
-                position = ler.nextLine();
-                Position targetPosition = new Position(position);
                 game.movePiece(initialPosition, targetPosition);
+                
 
                 if(game.endGame(targetPosition) != null) {
                     System.out.println("O vencedor é: " + game.endGame(targetPosition));

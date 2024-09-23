@@ -15,7 +15,7 @@ public class Position {
 
   public Position(String position) {
     if(position.length() != 2) {
-      throw new IllegalArgumentException("Posição inválida: " + position);
+      throw new IllegalArgumentException("Posição inválida: " + position.length());
     }
     this.row = Integer.parseInt(position.substring(1)) - 1; // Ajustando para posição em array
     this.column = convertColumnLetterToNumber(position.charAt(0));

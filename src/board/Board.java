@@ -12,6 +12,9 @@ import pieces.chess.*;
 public class Board {
   private ChessPiece[][] board; // Primeiro [] representa a linha e o Segundo [] representa a coluna
 
+  private final String cyan = "\u001B[36m";
+  private final String reset = "\u001B[0m";
+
   public Board() {
     board = new ChessPiece[8][8];
     for (int i = 0; i < 8; i++) {
@@ -164,9 +167,9 @@ public class Board {
       for (int j = 0; j < 8; j++) {
         if(possibleMoves.contains(i + "" + j)) {
           if(board[i][j] != null) {
-            s += "⟪" + board[i][j] + " ⟫ ";
+            s += cyan + "⟪" + board[i][j] + " ⟫ " + reset;
           } else {
-            s += "⟪  ⟫ ";
+            s += cyan + "⟪  ⟫ " + reset;
           }
         } else if (board[i][j] != null) {
             s += "[" + board[i][j] + " ] ";
