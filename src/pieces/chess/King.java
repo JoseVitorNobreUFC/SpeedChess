@@ -66,4 +66,8 @@ public class King extends ChessPiece {
     return this.getColor().equals(Color.WHITE) ? "♚" : "♔";
   }
   
+  @Override
+  public String getPieceName() {
+    return "King";
+  }
 }

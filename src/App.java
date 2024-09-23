@@ -46,6 +46,11 @@ public class App {
                 position = ler.nextLine();
                 Position targetPosition = new Position(position.charAt(0), Integer.parseInt(position.substring(1)));
                 game.movePiece(initialPosition, targetPosition);
+
+                if(game.endGame(targetPosition) != null) {
+                    System.out.println("O vencedor é: " + game.endGame(targetPosition));
+                    break;
+                }
                 i++;
             } catch (BoardException e) {
                 System.err.println("\nERRO!!!" + e.getMessage());

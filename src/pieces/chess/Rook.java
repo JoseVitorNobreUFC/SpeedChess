@@ -61,4 +61,8 @@ public class Rook extends ChessPiece{
     return this.getColor().equals(Color.WHITE) ? "♜" : "♖";
   }
   
+  @Override
+  public String getPieceName() {
+    return "Rook";
+  }
 }

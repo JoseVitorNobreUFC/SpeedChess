@@ -3,6 +3,7 @@ package game;
 import board.*;
 import enums.Color;
 import exceptions.PlayerException;
+import pieces.chess.ChessPiece;
 
 /**
  * Classe que define como vai funcionar o fluxo do jogo
@@ -11,6 +12,7 @@ public class Game {
   private Board board;
   private Player player1;
   private Player player2;
+  private ChessPiece pieceTaken;
 
   public Game(Player player1, Player player2) {
     this.player1 = player1;
@@ -34,7 +36,7 @@ public class Game {
   }
 
   public void movePiece(Position initialPosition, Position targetPosition) {
-    board.movePiece(initialPosition, targetPosition);
+    this.pieceTaken =board.movePiece(initialPosition, targetPosition);
   }
 
   public String showPossibleMoves(Position position, Player playerToMove) {
@@ -47,5 +49,16 @@ public class Game {
   @Override
   public String toString() {
     return board.toString();
+  }
+
+  public Player endGame(Position position) {
+    if(pieceTaken != null && pieceTaken.getPieceName().equals("King")) {
+      if(pieceTaken.getColor().equals(Color.WHITE)) {
+        return player2;
+      } else {
+        return player1;
+      }
+    }
+    return null;
   }
 }

@@ -110,15 +110,17 @@ public class Board {
    * @param initialPosition Posição inicial da peça
    * @param targetPosition  Posição final da peça
    */
-  public void movePiece(Position initialPosition, Position targetPosition) { // Lembrar de mover internamente a posição da peça
+  public ChessPiece movePiece(Position initialPosition, Position targetPosition) { // Lembrar de mover internamente a posição da peça
     this.analyseMovement(initialPosition, targetPosition);
 
     if(board[initialPosition.getRow()][initialPosition.getColumn()].isFirstMove()) {
       board[initialPosition.getRow()][initialPosition.getColumn()].takeFirstMove();
     }
+    ChessPiece piece = board[targetPosition.getRow()][targetPosition.getColumn()];
     board[targetPosition.getRow()][targetPosition.getColumn()] = board[initialPosition.getRow()][initialPosition
         .getColumn()];
     board[initialPosition.getRow()][initialPosition.getColumn()] = null;
+    return piece;
   }
 
   private boolean isPositionNull(Position position) {
@@ -177,6 +179,12 @@ public class Board {
     return s;
   }
 
+  /**
+   * Está função serve para pegar a peça contida naquela posição
+   * 
+   * @param position Posição da peça
+   * @return A peça contida naquela posição
+   */
   public ChessPiece getPiece(Position position) {
     this.analyseMovement(position);
     return board[position.getRow()][position.getColumn()];

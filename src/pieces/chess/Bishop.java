@@ -59,4 +59,9 @@ public class Bishop extends ChessPiece {
   public String toString() {
     return this.getColor().equals(Color.WHITE) ? "♝" : "♗";
   }
+
+  @Override
+  public String getPieceName() {
+    return "Bishop";
+  }
 }

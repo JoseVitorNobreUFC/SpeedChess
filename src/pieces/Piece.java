@@ -31,4 +31,10 @@ public abstract class Piece {
    * @return Um vetor de posição, onde cada posição corresponde a um movimento valido
    */
   public abstract ArrayList<String> getAvailableMoves(Piece[][] board, Position position);
+
+  /**
+   * Retorna o nome da peça, no tabuleiro iremos usar isso em alguns casos
+   * @return Nome da peça
+   */
+  public abstract String getPieceName();
 }
