@@ -61,7 +61,7 @@ public class Pawn extends ChessPiece{
   
   @Override
   public String toString() {
-    return this.getColor().equals(Color.WHITE) ? "U+265F" : "U+2659";
+    return this.getColor().equals(Color.WHITE) ? "\u265F" : "\u2659";
   }
 
   @Override

@@ -58,7 +58,7 @@ public class Rook extends CastlingPieces{
   
   @Override
   public String toString() {
-    return this.getColor().equals(Color.WHITE) ? "U+265C" : "U+2656";
+    return this.getColor().equals(Color.WHITE) ? "\u265C" : "\u2656";
   }
   
   @Override
