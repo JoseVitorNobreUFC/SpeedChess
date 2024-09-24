@@ -75,4 +75,8 @@ public class UI {
     }
     return false;
   }
+
+  public void checkPawnPromotion(){
+    this.game.promotePawn(0, null, null);
+  }
 }

@@ -70,4 +70,10 @@ public class Game {
     }
     return null;
   }
+
+  public void promotePawn(int piece, Position initialPosition, Position targetPosition) {
+    if(this.board.checkPromotion(initialPosition, targetPosition)) {
+      this.board.pawnPromotion(piece, targetPosition);
+    }
+  }
 }

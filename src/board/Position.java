@@ -39,7 +39,6 @@ public class Position {
     this.column = column - 1; // Ajustando para posição em array
   }
 
-
   public static boolean isValidPosition(Position position) {
     return position.getRow() >= 0 && position.getRow() < 8 && position.getColumn() >= 0 && position.getColumn() < 8;
   }
@@ -62,6 +61,6 @@ public class Position {
   @Override
   public String toString() {
     char columnLetter = (char) (column + 'A');
-    return "Position:" + columnLetter + (row + 1);
+    return "" + columnLetter + (row + 1);
   }
 }

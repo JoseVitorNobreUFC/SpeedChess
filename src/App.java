@@ -1,13 +1,6 @@
 import exceptions.*;
 import game.*;
 
-import java.util.Scanner;
-
-import board.Position;
-
-/**
- * Algumas otimizações precisam ser feitas aqui
- */
 public class App {
     final static String reset = "\u001B[0m";
     final static String red = "\u001B[31m";
@@ -23,6 +16,8 @@ public class App {
                     break;
                 }
 
+                // aplicacao.checkPawnPromotion();
+                
                 if(aplicacao.checkEndGame()) {
                     break;
                 }

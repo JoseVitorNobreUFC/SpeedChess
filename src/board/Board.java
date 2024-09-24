@@ -11,9 +11,11 @@ import pieces.chess.*;
  */
 public class Board {
   private ChessPiece[][] board; // Primeiro [] representa a linha e o Segundo [] representa a coluna
+  private ArrayList<Position> lastMovement;
 
   private final String cyan = "\u001B[36m";
   private final String reset = "\u001B[0m";
+  private final String yellow = "\u001B[33m";
 
   public Board() {
     board = new ChessPiece[8][8];
@@ -22,6 +24,7 @@ public class Board {
         board[i][j] = null;
       }
     }
+    this.lastMovement = new ArrayList<Position>();
 
     initBoard();
   }
@@ -123,6 +126,10 @@ public class Board {
     board[targetPosition.getRow()][targetPosition.getColumn()] = board[initialPosition.getRow()][initialPosition
         .getColumn()];
     board[initialPosition.getRow()][initialPosition.getColumn()] = null;
+
+    this.lastMovement.clear();
+    this.lastMovement.add(initialPosition);
+    this.lastMovement.add(targetPosition);
     return piece;
   }
 
@@ -138,13 +145,22 @@ public class Board {
   @Override
   public String toString() {
     String s = "    A    B    C    D    E    F    G    H\n";
+    ArrayList<String> lastMovement = convertLastMovement();
     for (int i = 0; i < 8; i++) {
       s += (i + 1) + " ";
       for (int j = 0; j < 8; j++) {
         if (board[i][j] != null) {
-          s += "[" + board[i][j] + " ] ";
+          if(lastMovement.contains(i + "" + j)) {
+            s += yellow + "\u27EA" + reset + board[i][j] + yellow + " \u27EB " + reset;
+          } else {
+            s += "[" + board[i][j] + " ] ";
+          }
         } else {
-          s += "[  ] ";
+          if(lastMovement.contains(i + "" + j)) {
+            s += yellow + "\u27EA " + " \u27EB " + reset;
+          } else {
+            s += "[  ] ";
+          }
         }
       }
       s += "\n";
@@ -160,21 +176,27 @@ public class Board {
    */
   public String showPossibleMoves(Position position) {
     this.analyseMovement(position);
+    ArrayList<String> lastMovement = convertLastMovement();
     ArrayList<String> possibleMoves = board[position.getRow()][position.getColumn()].getAvailableMoves(board, position);
     String s = "    A    B    C    D    E    F    G    H\n";
     for (int i = 0; i < 8; i++) {
       s += (i + 1) + " ";
       for (int j = 0; j < 8; j++) {
+        // Verifica os movimentos possíveis
         if(possibleMoves.contains(i + "" + j)) {
           if(board[i][j] != null) {
-            s += cyan + "\u27EA" + board[i][j] + " \u27EB " + reset;
+            s += cyan + "\u27EA" + reset + board[i][j] + cyan + " \u27EB " + reset;
           } else {
-            s += cyan + "\u27EA  \u27EB " + reset;
+            s += cyan + "\u27EA " + " \u27EB " + reset;
           }
         } else if (board[i][j] != null) {
-            s += "[" + board[i][j] + " ] ";
+            s += lastMovement.contains(i + "" + j) ?
+                yellow + "\u27EA" + reset + board[i][j] + yellow + " \u27EB " + reset :
+                "[" + board[i][j] + " ] ";
         } else {
-          s += "[  ] ";
+          s += lastMovement.contains(i + "" + j) ?
+              yellow + "\u27EA " + " \u27EB " + reset :
+              "[  ] ";
         }
       }
       s += "\n";
@@ -233,5 +255,15 @@ public class Board {
       default:
         throw new PieceException("\nERRO!!! Valor invalido\n");
     }
+  }
+
+  private ArrayList<String> convertLastMovement() {
+    ArrayList<String> lastMovements = new ArrayList<String>();
+    if(this.lastMovement.size() == 0) {
+      return lastMovements;
+    }
+    lastMovements.add(this.lastMovement.get(0).getRow() + "" + this.lastMovement.get(0).getColumn());
+    lastMovements.add(this.lastMovement.get(1).getRow() + "" + this.lastMovement.get(1).getColumn());
+    return lastMovements;
   }
 }
