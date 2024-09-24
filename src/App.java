@@ -34,10 +34,7 @@ public class App {
                     playerToMove = game.getPlayer2();
                 }
 
-                System.out.println("Peças tomadas por " + playerToMove + ": " + game.getPlayer1().getPieces() + "\n");
                 System.out.println(game);
-                System.out.println("Peças tomadas por " + playerToMove + ": " + game.getPlayer2().getPieces() + "\n");
-                
                 System.out.print("Digite a posição da peça que voce deseja mover " + playerToMove + ": ");
                 move = ler.nextLine();
                 
@@ -47,10 +44,7 @@ public class App {
                 } else {
                     initialPosition = new Position(move);
                     
-                    System.out.println("Peças tomadas por " + playerToMove + ": " + game.getPlayer1().getPieces() + "\n");
                     System.out.println(game.showPossibleMoves(initialPosition, playerToMove));
-                    System.out.println("Peças tomadas por " + playerToMove + ": " + game.getPlayer2().getPieces() + "\n");
-
                     System.out.println("Deseja realmente mover esta peça? [S/N]");
                     action = ler.nextLine();
                     if(!action.equalsIgnoreCase("s")) {
@@ -67,7 +61,8 @@ public class App {
                 
 
                 if(game.endGame(targetPosition) != null) {
-                    System.out.println("O vencedor é: " + game.endGame(targetPosition));
+                    System.out.println(game);
+                    System.out.println("\u001B[32m" + "O vencedor é: " + game.endGame(targetPosition) + "\u001B[0m");
                     break;
                 }
                 i++;

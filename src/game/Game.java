@@ -47,11 +47,18 @@ public class Game {
     if(!playerToMove.getColor().equals(board.getPiece(position).getColor())) {
       throw new PlayerException("\nERRO!!!! A peça selecionada não é sua\n");
     }
-    return board.showPossibleMoves(position);
+
+    String s = "Peças tomadas por " + playerToMove + ": " + playerToMove.getPieces() + "\n";
+    s += board.showPossibleMoves(position);
+    s += "Peças tomadas por " + playerToMove + ": " + playerToMove.getPieces() + "\n";
+    return s;
   }
 
   @Override
   public String toString() {
+    String s = "Peças tomadas por " + this.getPlayer1() + ": " + this.getPlayer1().getPieces() + "\n";
+    s += board.toString();
+    s += "Peças tomadas por " + this.getPlayer2() + ": " + this.getPlayer2().getPieces() + "\n";
     return board.toString();
   }
 
