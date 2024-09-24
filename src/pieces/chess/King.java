@@ -63,7 +63,7 @@ public class King extends CastlingPieces {
 
   @Override
   public String toString() {
-    return this.getColor().equals(Color.WHITE) ? "♚" : "♔";
+    return this.getColor().equals(Color.WHITE) ? "U+265A" : "U+2654";
   }
   
   @Override

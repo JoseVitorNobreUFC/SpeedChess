@@ -167,9 +167,9 @@ public class Board {
       for (int j = 0; j < 8; j++) {
         if(possibleMoves.contains(i + "" + j)) {
           if(board[i][j] != null) {
-            s += cyan + "⟪" + board[i][j] + " ⟫ " + reset;
+            s += cyan + "U+27EA" + board[i][j] + " U+27EB " + reset;
           } else {
-            s += cyan + "⟪  ⟫ " + reset;
+            s += cyan + "U+27EA  U+27EB " + reset;
           }
         } else if (board[i][j] != null) {
             s += "[" + board[i][j] + " ] ";
