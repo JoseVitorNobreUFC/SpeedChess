@@ -72,18 +72,18 @@ public class Board {
    */
   private void analyseMovement(Position initialPosition, Position targetPosition) {
     if (!Position.isValidPosition(targetPosition) || !Position.isValidPosition(initialPosition)) {
-      throw new BoardException("Posição fora do tabuleiro");
+      throw new BoardException("\nERRO!!!! Posição fora do tabuleiro\n");
     }
 
     if (isPositionNull(initialPosition)) {
-      throw new PositionException("Esta posição não contem peça");
+      throw new PositionException("\nERRO!!!! Esta posição não contem peça\n");
     }
     
     ArrayList<String> possibleMoves = board[initialPosition.getRow()][initialPosition.getColumn()].getAvailableMoves(board, initialPosition);
     int row = targetPosition.getRow();
     int column = targetPosition.getColumn();
     if(!possibleMoves.contains(row + "" + column)) {
-      throw new PieceException("Este movimento não é permitido");
+      throw new PieceException("\nERRO!!!! Este movimento não é permitido\n");
     }
   }
 
@@ -99,11 +99,11 @@ public class Board {
    */
   private void analyseMovement(Position position) {
     if (!Position.isValidPosition(position)) {
-      throw new BoardException("Posição fora do tabuleiro");
+      throw new BoardException("\nERRO!!!! Posição fora do tabuleiro\n");
     }
 
     if (isPositionNull(position)) {
-      throw new PositionException("Esta posição não contem peça");
+      throw new PositionException("\nERRO!!!! Esta posição não contem peça\n");
     }
   }
 

@@ -1,5 +1,7 @@
 package board;
 
+import exceptions.PositionException;
+
 /**
  * Classe que define como funciona as coordenadas do tabuleiro
  */
@@ -15,7 +17,7 @@ public class Position {
 
   public Position(String position) {
     if(position.length() != 2) {
-      throw new IllegalArgumentException("Posição inválida: " + position.length());
+      throw new PositionException("\nERRO!!!! Posição inválida\n");
     }
     this.row = Integer.parseInt(position.substring(1)) - 1; // Ajustando para posição em array
     this.column = convertColumnLetterToNumber(position.charAt(0));

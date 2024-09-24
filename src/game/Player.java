@@ -26,8 +26,20 @@ public class Player {
     return this.color;
   }
 
+  public void addPiece(ChessPiece piece) {
+    this.pieces.add(piece);
+  }
+
   public String getPieces() {
-    return this.pieces.toString();
+    String pieces = "[\u001B[33m";
+    for(int i = 0; i < this.pieces.size(); i++) {
+      pieces += this.pieces.get(i).toString() + " ";
+      if(i < this.pieces.size() - 1) {
+        pieces += ", ";
+      }
+    }
+    pieces += "\u001B[0m]";
+    return pieces;
   }
   
   @Override

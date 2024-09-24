@@ -35,13 +35,17 @@ public class Game {
     return player2;
   }
 
-  public void movePiece(Position initialPosition, Position targetPosition) {
-    this.pieceTaken =board.movePiece(initialPosition, targetPosition);
+  public void movePiece(Position initialPosition, Position targetPosition, Player playerToMove) {
+    this.pieceTaken = board.movePiece(initialPosition, targetPosition);
+
+    if(pieceTaken != null) {
+      playerToMove.addPiece(pieceTaken);
+    }
   }
 
   public String showPossibleMoves(Position position, Player playerToMove) {
     if(!playerToMove.getColor().equals(board.getPiece(position).getColor())) {
-      throw new PlayerException("A peça selecionada não é sua");
+      throw new PlayerException("\nERRO!!!! A peça selecionada não é sua\n");
     }
     return board.showPossibleMoves(position);
   }
