@@ -12,60 +12,21 @@ public class App {
     final static String reset = "\u001B[0m";
     final static String red = "\u001B[31m";
     public static void main(String[] args) throws Exception {
-        Scanner ler = new Scanner(System.in);
-
-        String player1, player2;
-        System.out.print("Digite o nome do primeiro jogador: ");
-        player1 = ler.nextLine();
-        System.out.print("Digite o nome do segundo jogador: ");
-        player2 = ler.nextLine();
-
-        Game game = new Game(new Player(player1), new Player(player2));
-        int i = 0;
-        String move = "";
-        String action = "";
-        Position initialPosition, targetPosition;
+        UI aplicacao = new UI();
+        int iterator = 0;
         while (true) {
             try {
-                Player playerToMove;
-                if(i % 2 == 0) {
-                    playerToMove = game.getPlayer1();
-                } else {
-                    playerToMove = game.getPlayer2();
-                }
+                Player playerToMove = aplicacao.decidePlayerToMove(iterator);
 
-                System.out.println(game);
-                System.out.print("Digite a posição da peça que voce deseja mover " + playerToMove + ": ");
-                move = ler.nextLine();
-                
-                if(move.length() == 4) {
-                    initialPosition = new Position(move.substring(0, 2));
-                    targetPosition = new Position(move.substring(2, 4));
-                } else {
-                    initialPosition = new Position(move);
-                    
-                    System.out.println(game.showPossibleMoves(initialPosition, playerToMove));
-                    System.out.println("Deseja realmente mover esta peça? [S/N]");
-                    action = ler.nextLine();
-                    if(!action.equalsIgnoreCase("s")) {
-                        continue;
-                    } else if(action.equalsIgnoreCase("exit")) {
-                        break;
-                    }
-
-                    System.out.print("Digite a posição para onde deseja mover a peça: ");
-                    move = ler.nextLine();
-                    targetPosition = new Position(move);
-                }
-                game.movePiece(initialPosition, targetPosition, playerToMove);
-                
-
-                if(game.endGame(targetPosition) != null) {
-                    System.out.println(game);
-                    System.out.println("\u001B[32m" + "O vencedor é: " + game.endGame(targetPosition) + "\u001B[0m");
+                aplicacao.printBoard();
+                if(aplicacao.action(playerToMove) == -1) {
                     break;
                 }
-                i++;
+
+                if(aplicacao.checkEndGame()) {
+                    break;
+                }
+                iterator++;
             } catch (BoardException e) {
                 System.err.println(red + e.getMessage() + reset);
             } catch (PieceException e) {
@@ -78,6 +39,5 @@ public class App {
                 System.err.println(red + e.getMessage() + reset);
             }
         }
-        ler.close();
     }
 }

@@ -42,6 +42,15 @@ public class Player {
     return pieces;
   }
   
+  public boolean hasKing() {
+    for(ChessPiece piece : this.pieces) {
+      if(piece.getPieceName().equals("King")) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @Override
   public String toString() {
     return this.name;

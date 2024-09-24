@@ -6,7 +6,7 @@ import board.Position;
 import enums.Color;
 import pieces.Piece;
 
-public class King extends ChessPiece {
+public class King extends CastlingPieces {
   
   public King(Color color) {
     super(color);

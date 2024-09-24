@@ -192,4 +192,46 @@ public class Board {
     this.analyseMovement(position);
     return board[position.getRow()][position.getColumn()];
   }
+
+  /**
+   * Verifica se o peão pode ser promovido, através da checagem de se ele está na linha 0 ou 7
+   * 
+   * @param initialPosition Posição inicial da peça
+   * @param targetPosition  Posição final da peça
+   * @return Retorna um valor booleano
+   */ 
+  public boolean checkPromotion(Position initialPosition, Position targetPosition) {
+    if(board[targetPosition.getRow()][targetPosition.getColumn()].getPieceName().equals("Pawn")
+        && (targetPosition.getRow() == 0 || targetPosition.getRow() == 7)) {
+        return true;
+      } else {
+        return false;
+      }
+  }
+
+  /**
+   * Promova um peão
+   * 
+   * @param piece Peça que vai ser promovida
+   * @param pawnPosition Posição da peça
+   */
+  public void pawnPromotion(int piece, Position pawnPosition) {
+    Color color = board[pawnPosition.getRow()][pawnPosition.getColumn()].getColor();
+    switch (piece) {
+      case 1:
+        board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Queen(color);
+        break;
+      case 2:
+        board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Rook(color);
+        break;
+      case 3:
+        board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Knight(color);
+        break;
+      case 4:
+        board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Bishop(color);
+        break;
+      default:
+        throw new PieceException("\nERRO!!! Valor invalido\n");
+    }
+  }
 }

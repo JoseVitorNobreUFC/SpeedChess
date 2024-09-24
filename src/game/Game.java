@@ -59,16 +59,14 @@ public class Game {
     String s = "Peças tomadas por " + this.getPlayer1() + ": " + this.getPlayer1().getPieces() + "\n";
     s += board.toString();
     s += "Peças tomadas por " + this.getPlayer2() + ": " + this.getPlayer2().getPieces() + "\n";
-    return board.toString();
+    return s;
   }
 
-  public Player endGame(Position position) {
-    if(pieceTaken != null && pieceTaken.getPieceName().equals("King")) {
-      if(pieceTaken.getColor().equals(Color.WHITE)) {
-        return player2;
-      } else {
-        return player1;
-      }
+  public Player endGame() {
+    if(player1.hasKing()) {
+      return player1;
+    } else if(player2.hasKing()) {
+      return player2;
     }
     return null;
   }
