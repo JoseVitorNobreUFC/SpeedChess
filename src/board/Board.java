@@ -41,6 +41,7 @@ public class Board {
       board[6][i] = new Pawn(Color.BLACK);
     }
 
+    board[6][1] = new Pawn(Color.WHITE);
     // Criando as peças brancas
     board[0][0] = new Rook(Color.WHITE);
     board[0][1] = new Knight(Color.WHITE);
@@ -81,19 +82,22 @@ public class Board {
     if (isPositionNull(initialPosition)) {
       throw new PositionException("\nERRO!!!! Esta posição não contem peça\n");
     }
-    
-    ArrayList<String> possibleMoves = board[initialPosition.getRow()][initialPosition.getColumn()].getAvailableMoves(board, initialPosition);
+
+    ArrayList<String> possibleMoves = board[initialPosition.getRow()][initialPosition.getColumn()]
+        .getAvailableMoves(board, initialPosition);
     int row = targetPosition.getRow();
     int column = targetPosition.getColumn();
-    if(!possibleMoves.contains(row + "" + column)) {
+    if (!possibleMoves.contains(row + "" + column)) {
       throw new PieceException("\nERRO!!!! Este movimento não é permitido\n");
     }
   }
 
   /**
    * Essa função tem como objetivo analisar a posição de uma peça, lançando
-   * uma exceção caso o movimento seja inválido, em comparação com a função anterior
+   * uma exceção caso o movimento seja inválido, em comparação com a função
+   * anterior
    * essa é mais usada quando for analisar os movimentos de uma peça veja a função
+   * 
    * @see Board#showPossibleMoves Onde essa função é chamada
    * 
    * @param position Posição inicial da peça
@@ -116,10 +120,11 @@ public class Board {
    * @param initialPosition Posição inicial da peça
    * @param targetPosition  Posição final da peça
    */
-  public ChessPiece movePiece(Position initialPosition, Position targetPosition) { // Lembrar de mover internamente a posição da peça
+  public ChessPiece movePiece(Position initialPosition, Position targetPosition) { // Lembrar de mover internamente a
+                                                                                   // posição da peça
     this.analyseMovement(initialPosition, targetPosition);
 
-    if(board[initialPosition.getRow()][initialPosition.getColumn()].isFirstMove()) {
+    if (board[initialPosition.getRow()][initialPosition.getColumn()].isFirstMove()) {
       board[initialPosition.getRow()][initialPosition.getColumn()].takeFirstMove();
     }
     ChessPiece piece = board[targetPosition.getRow()][targetPosition.getColumn()];
@@ -150,13 +155,13 @@ public class Board {
       s += (i + 1) + " ";
       for (int j = 0; j < 8; j++) {
         if (board[i][j] != null) {
-          if(lastMovement.contains(i + "" + j)) {
+          if (lastMovement.contains(i + "" + j)) {
             s += yellow + "\u27EA" + reset + board[i][j] + yellow + " \u27EB " + reset;
           } else {
             s += "[" + board[i][j] + " ] ";
           }
         } else {
-          if(lastMovement.contains(i + "" + j)) {
+          if (lastMovement.contains(i + "" + j)) {
             s += yellow + "\u27EA " + " \u27EB " + reset;
           } else {
             s += "[  ] ";
@@ -172,7 +177,8 @@ public class Board {
    * Está função serve para exibir as possiveis movimentações de uma peça
    * 
    * @param position Posição da peça
-   * @return String contendo representação do tabuleiro com os movimentos possíveis
+   * @return String contendo representação do tabuleiro com os movimentos
+   *         possíveis
    */
   public String showPossibleMoves(Position position) {
     this.analyseMovement(position);
@@ -183,20 +189,17 @@ public class Board {
       s += (i + 1) + " ";
       for (int j = 0; j < 8; j++) {
         // Verifica os movimentos possíveis
-        if(possibleMoves.contains(i + "" + j)) {
-          if(board[i][j] != null) {
+        if (possibleMoves.contains(i + "" + j)) {
+          if (board[i][j] != null) {
             s += cyan + "\u27EA" + reset + board[i][j] + cyan + " \u27EB " + reset;
           } else {
             s += cyan + "\u27EA " + " \u27EB " + reset;
           }
         } else if (board[i][j] != null) {
-            s += lastMovement.contains(i + "" + j) ?
-                yellow + "\u27EA" + reset + board[i][j] + yellow + " \u27EB " + reset :
-                "[" + board[i][j] + " ] ";
+          s += lastMovement.contains(i + "" + j) ? yellow + "\u27EA" + reset + board[i][j] + yellow + " \u27EB " + reset
+              : "[" + board[i][j] + " ] ";
         } else {
-          s += lastMovement.contains(i + "" + j) ?
-              yellow + "\u27EA " + " \u27EB " + reset :
-              "[  ] ";
+          s += lastMovement.contains(i + "" + j) ? yellow + "\u27EA " + " \u27EB " + reset : "[  ] ";
         }
       }
       s += "\n";
@@ -216,19 +219,20 @@ public class Board {
   }
 
   /**
-   * Verifica se o peão pode ser promovido, através da checagem de se ele está na linha 0 ou 7
+   * Verifica se o peão pode ser promovido, através da checagem de se ele está na
+   * linha 0 ou 7
    * 
    * @param initialPosition Posição inicial da peça
    * @param targetPosition  Posição final da peça
    * @return Retorna um valor booleano
-   */ 
+   */
   public boolean checkPromotion(Position initialPosition, Position targetPosition) {
-    if(board[targetPosition.getRow()][targetPosition.getColumn()].getPieceName().equals("Pawn")
+    if (board[targetPosition.getRow()][targetPosition.getColumn()].getPieceName().equals("Pawn")
         && (targetPosition.getRow() == 0 || targetPosition.getRow() == 7)) {
-        return true;
-      } else {
-        return false;
-      }
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -237,19 +241,19 @@ public class Board {
    * @param piece Peça que vai ser promovida
    * @param pawnPosition Posição da peça
    */
-  public void pawnPromotion(int piece, Position pawnPosition) {
+  public void pawnPromotion(String piece, Position pawnPosition) {
     Color color = board[pawnPosition.getRow()][pawnPosition.getColumn()].getColor();
     switch (piece) {
-      case 1:
+      case "0":
         board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Queen(color);
         break;
-      case 2:
+      case "1":
         board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Rook(color);
         break;
-      case 3:
+      case "2":
         board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Knight(color);
         break;
-      case 4:
+      case "3":
         board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Bishop(color);
         break;
       default:
@@ -257,9 +261,13 @@ public class Board {
     }
   }
 
+  public ArrayList<Position> getLastMovement() {
+    return this.lastMovement;
+  }
+
   private ArrayList<String> convertLastMovement() {
     ArrayList<String> lastMovements = new ArrayList<String>();
-    if(this.lastMovement.size() == 0) {
+    if (this.lastMovement.size() == 0) {
       return lastMovements;
     }
     lastMovements.add(this.lastMovement.get(0).getRow() + "" + this.lastMovement.get(0).getColumn());

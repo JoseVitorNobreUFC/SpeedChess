@@ -7,20 +7,16 @@ public class App {
     public static void main(String[] args) throws Exception {
         UI aplicacao = new UI();
         int iterator = 0;
-        while (true) {
+        while (!aplicacao.checkEndGame()) {
             try {
                 Player playerToMove = aplicacao.decidePlayerToMove(iterator);
 
                 aplicacao.printBoard();
-                if(aplicacao.action(playerToMove) == -1) {
+                if(aplicacao.action(playerToMove) == -1) { // Estudar porque peão B7 não pode ir A8
                     break;
                 }
 
-                // aplicacao.checkPawnPromotion();
-                
-                if(aplicacao.checkEndGame()) {
-                    break;
-                }
+                aplicacao.checkPawnPromotion();
                 iterator++;
             } catch (BoardException e) {
                 System.err.println(red + e.getMessage() + reset);

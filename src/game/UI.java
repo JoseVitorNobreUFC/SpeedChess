@@ -1,8 +1,11 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import board.Position;
+import enums.Color;
+import exceptions.PieceException;
 
 public class UI {
   private Scanner sc = new Scanner(System.in);
@@ -11,7 +14,7 @@ public class UI {
   private String reset = "\u001B[0m";
   private String green = "\u001B[32m";
   private String bold = "\u001b[1m";
-  private String gray = "\u001B[90m";
+  private String gray = bold + "\u001B[90m";
 
   public UI() {
     game = initGame();
@@ -19,11 +22,11 @@ public class UI {
 
   public Game initGame() {
     System.out.print("Digite o nome do jogador com as peças brancas: " + bold);
-    Player player1 = new Player(sc.nextLine());
+    String player1 = sc.nextLine();
     System.out.println(reset);
 
-    System.out.print("Digite o nome do jogador com as peças pretas: " + bold + gray);
-    Player player2 = new Player(sc.nextLine());
+    System.out.print("Digite o nome do jogador com as peças pretas: " + gray);
+    String player2 = sc.nextLine();
     System.out.println(reset);
     return new Game(player1, player2);
   }
@@ -69,7 +72,7 @@ public class UI {
     Player winner = game.endGame();
     if(winner != null) {
       System.out.println(game);
-      System.out.println("\u001B[32m" + "O vencedor é: " + winner + "\u001B[0m");
+      System.out.println(green + bold + "O vencedor é: " + winner + reset + "\n");
       sc.close(); 
       return true;
     }
@@ -77,6 +80,26 @@ public class UI {
   }
 
   public void checkPawnPromotion(){
-    this.game.promotePawn(0, null, null);
+    ArrayList<Position> lastMovements = game.getBoard().getLastMovement();
+    if((lastMovements.get(1).getRow() == 7 || lastMovements.get(1).getRow() == 0)
+        && game.getBoard().getPiece(lastMovements.get(1)).getPieceName().equals("Pawn")) {
+      Color color = game.getBoard().getPiece(lastMovements.get(1)).getColor();
+      Position initialPosition = lastMovements.get(0);
+      Position targetPosition = lastMovements.get(1);
+        while (true) {
+        System.out.println("Digite para qual peça voce deseja promover: ");
+        if(color == Color.WHITE) {
+          System.out.println("[0] \u265B  [1] \u265C  [2] \u265E  [3] \u265D");
+        } else {
+          System.out.println("[0] \u2655  [1] \u2656  [2] \u2658  [3] \u2657");
+        }
+        try {
+          this.game.promotePawn(sc.nextLine(), initialPosition, targetPosition);
+          break;
+        } catch (PieceException e) {
+          System.err.println(red + e.getMessage() + reset);
+        }
+      }
+    }
   }
 }
