@@ -49,10 +49,10 @@ public class Pawn extends ChessPiece{
           availablePositions.add((row + rowDirection) + "" + column);
         }
       }
-      if(column > 1 && board[row][column - 1] != null && board[row][column - 1].getColor() != this.getColor()) {
+      if(column > 0 && board[row][column - 1] != null && board[row][column - 1].getColor() != this.getColor()) {
         availablePositions.add(row + "" + (column - 1));
       }
-      if(column < 6 && board[row][column + 1] != null && board[row][column + 1].getColor() != this.getColor()) {
+      if(column < 7 && board[row][column + 1] != null && board[row][column + 1].getColor() != this.getColor()) {
         availablePositions.add(row + "" + (column + 1));
       }
     }
@@ -61,7 +61,7 @@ public class Pawn extends ChessPiece{
   
   @Override
   public String toString() {
-    return this.getColor().equals(Color.WHITE) ? "\u265F" : "\u2659";
+    return this.getColor().equals(Color.WHITE) ? "\u001b[1m\u265F\u001B[0m" : "\u001b[1m\u001B[90m\u2659\u001B[0m";
   }
 
   @Override

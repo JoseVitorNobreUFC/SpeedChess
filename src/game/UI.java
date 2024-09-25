@@ -21,11 +21,11 @@ public class UI {
   }
 
   public Game initGame() {
-    System.out.print("Digite o nome do jogador com as peças brancas: " + bold);
+    System.out.print(bold + "Digite o nome do jogador com as peças brancas: ");
     String player1 = sc.nextLine();
     System.out.println(reset);
 
-    System.out.print("Digite o nome do jogador com as peças pretas: " + gray);
+    System.out.print(gray +"Digite o nome do jogador com as peças pretas: ");
     String player2 = sc.nextLine();
     System.out.println(reset);
     return new Game(player1, player2);
@@ -44,10 +44,18 @@ public class UI {
   }
 
   public int action(Player playerToMove) {
-    System.out.print("Digite a posição da peça que voce deseja mover " + playerToMove + ": ");
+    String playerColor = playerToMove.getColor().equals(Color.WHITE) ? bold : gray;
+    System.out.print(playerColor + "Digite a posição da peça que voce deseja mover " + playerToMove + ": " + reset);
     String command = sc.nextLine();
     
-    if (command.equals("exit")) {
+    if (command.equals("forfeit")) {
+      System.out.println(red + bold + "Jogador " + playerToMove + " desistiu do jogo" + reset);
+      if(playerToMove.equals(game.getPlayer1())) {
+        System.out.println(green + bold + "O vencedor é: " + game.getPlayer2() + reset + "\n");
+      } else {
+        System.out.println(green + bold + "O vencedor é: " + game.getPlayer1() + reset + "\n");
+      }
+      sc.close();
       return -1;
     } else if (command.length() == 4) {
       Position initialPosition = new Position(command.substring(0, 2));

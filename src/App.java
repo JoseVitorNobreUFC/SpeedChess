@@ -12,8 +12,12 @@ public class App {
                 Player playerToMove = aplicacao.decidePlayerToMove(iterator);
 
                 aplicacao.printBoard();
-                if(aplicacao.action(playerToMove) == -1) { // Estudar porque peão B7 não pode ir A8
+
+                int action = aplicacao.action(playerToMove);
+                if(action == -1) {
                     break;
+                } else if(action == 0) {
+                    continue;
                 }
 
                 aplicacao.checkPawnPromotion();

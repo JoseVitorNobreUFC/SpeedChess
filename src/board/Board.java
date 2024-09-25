@@ -41,7 +41,6 @@ public class Board {
       board[6][i] = new Pawn(Color.BLACK);
     }
 
-    board[6][1] = new Pawn(Color.WHITE);
     // Criando as peças brancas
     board[0][0] = new Rook(Color.WHITE);
     board[0][1] = new Knight(Color.WHITE);

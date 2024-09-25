@@ -6,7 +6,7 @@ import board.Position;
 import enums.Color;
 import pieces.Piece;
 
-public class King extends CastlingPieces {
+public class King extends ChessPiece {
   
   public King(Color color) {
     super(color);
@@ -63,7 +63,7 @@ public class King extends CastlingPieces {
 
   @Override
   public String toString() {
-    return this.getColor().equals(Color.WHITE) ? "\u265A" : "\u2654";
+    return this.getColor().equals(Color.WHITE) ? "\u001b[1m\u265A\u001B[0m" : "\u001b[1m\u001B[90m\u2654\u001B[0m";
   }
   
   @Override

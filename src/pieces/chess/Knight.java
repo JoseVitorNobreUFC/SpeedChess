@@ -57,7 +57,7 @@ public class Knight extends ChessPiece {
 
   @Override
   public String toString() {
-    return this.getColor().equals(Color.WHITE) ? "\u265E" : "\u2658";
+    return this.getColor().equals(Color.WHITE) ? "\u001b[1m\u265E\u001B[0m" : "\u001b[1m\u001B[90m\u2658\u001B[0m";
   }
   
   @Override

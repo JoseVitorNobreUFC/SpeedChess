@@ -12,6 +12,9 @@ public class Game {
   private Board board;
   private Player player1;
   private Player player2;
+  private String reset = "\u001B[0m";
+  private String bold = "\u001b[1m";
+  private String gray = bold + "\u001B[90m";
 
   public Game(String player1, String player2) {
     this.player1 = new Player(player1);
@@ -47,17 +50,19 @@ public class Game {
       throw new PlayerException("\nERRO!!!! A peça selecionada não é sua\n");
     }
 
-    String s = "Peças tomadas por " + playerToMove + ": " + playerToMove.getPieces() + "\n\n";
+    String s = "Peças tomadas por " + player1 + ": " + player1.getPieces() + "\n\n";
     s += board.showPossibleMoves(position);
-    s += "\nPeças tomadas por " + playerToMove + ": " + playerToMove.getPieces() + "\n";
+    s += "\nPeças tomadas por " + player2 + ": " + player2.getPieces() + "\n";
     return s;
   }
 
   @Override
   public String toString() {
-    String s = "Peças tomadas por " + this.getPlayer1() + ": " + this.getPlayer1().getPieces() + "\n\n";
+    String s = bold + "Peças tomadas por " + this.getPlayer1() + ": [" + reset + gray + this.getPlayer1().getPieces();
+    s += reset + bold + " ]\n\n" + reset;
     s += board.toString();
-    s += "\nPeças tomadas por " + this.getPlayer2() + ": " + this.getPlayer2().getPieces() + "\n";
+    s += gray + "\nPeças tomadas por " + this.getPlayer2() + ": [" + reset + bold + this.getPlayer2().getPieces();
+    s += gray + " ]\n" + reset;
     return s;
   }
 

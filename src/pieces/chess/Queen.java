@@ -64,7 +64,7 @@ public class Queen extends ChessPiece {
   
   @Override
   public String toString() {
-    return this.getColor().equals(Color.WHITE) ? "\u265B" : "\u2655";
+    return this.getColor().equals(Color.WHITE) ? "\u001b[1m\u265B\u001B[0m" : "\u001b[1m\u001B[90m\u2655\u001B[0m";
   }
 
   @Override

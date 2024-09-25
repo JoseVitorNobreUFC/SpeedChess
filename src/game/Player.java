@@ -31,14 +31,13 @@ public class Player {
   }
 
   public String getPieces() {
-    String pieces = "[\u001B[33m";
+    String pieces = "";
     for(int i = 0; i < this.pieces.size(); i++) {
       pieces += this.pieces.get(i).toString();
       if(i < this.pieces.size() - 1) {
         pieces += " ,";
       }
     }
-    pieces += "\u001B[0m ]";
     return pieces;
   }
   

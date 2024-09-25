@@ -6,13 +6,19 @@ import pieces.Piece;
 /** 
  * Classe abstrata onde serão estipuladas algumas regras para uma peça de xadrez
  */
-public abstract class ChessPiece extends Piece {
+public abstract class ChessPiece implements Piece {
   protected boolean firstMove = true;
+  private Color color;
 
   public ChessPiece(Color color) {
-    super(color);
+    this.color = color;
   }
 
+  @Override
+  public Color getColor(){
+    return this.color;
+  }
+  
   public boolean isFirstMove() {
     return firstMove;
   }

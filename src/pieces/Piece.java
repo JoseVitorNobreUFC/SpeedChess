@@ -8,22 +8,9 @@ import enums.Color;
 /** 
  * Classe abstrata que define as funções base de uma peça, seja ela de xadrez ou de outro jogo de tabuleiro
  */
-public abstract class Piece {
-  private Color color;
+public interface Piece {
 
-  public Piece(Color color) {
-    this.color = color;
-  }
-
-
-  /**
-   * Retorna a cor da peça
-   * @return Cor da peça
-   */
-  public Color getColor(){
-    return this.color;
-  }
-
+  public Color getColor();
   /**
    * Retorna as direções em que a peça pode se mover
    * @param board Tabuleiro do jogo
