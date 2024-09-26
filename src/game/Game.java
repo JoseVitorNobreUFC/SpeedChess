@@ -18,6 +18,14 @@ public abstract class Game {
 
   public abstract void movePiece(Position initialPosition, Position targetPosition, Player playerToMove);
 
+  /**
+   * Exibe os movimentos possíveis para uma posição específica no tabuleiro, 
+   *   junto com as peças capturadas por cada jogador.
+   * 
+   * @param position  a posição para exibir os movimentos possíveis
+   * @param playerToMove  o jogador que está fazendo o movimento
+   * @return          uma representação em string dos movimentos possíveis e peças capturadas
+   */
   public String showPossibleMoves(Position position, Player playerToMove) {
     if(!playerToMove.getColor().equals(this.getBoard().getPiece(position).getColor())) {
       throw new PlayerException("\nERRO!!!! A peça selecionada não é sua\n");
@@ -31,6 +39,11 @@ public abstract class Game {
     return s;
   }
 
+  /**
+   * Exibe o tabuleiro e as peças capturadas por cada um dos jogadores.
+   * 
+   * @return uma representação em string do tabuleiro e as peças capturadas
+   */
   @Override
   public String toString() {
     String s = bold + "Peças tomadas por " + this.getPlayer1() + ": [" + reset + gray + this.getPlayer1().getPieces();

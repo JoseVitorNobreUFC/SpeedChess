@@ -8,7 +8,7 @@ import game.Player;
 import pieces.chess.ChessPiece;
 
 /**
- * Classe que define como vai funcionar o fluxo do jogo
+ * Classe que define como vai funcionar o fluxo do jogo de xadrez
  */
 public class ChessGame extends Game {
   private ChessPlayer player1;
@@ -58,6 +58,13 @@ public class ChessGame extends Game {
     return this.player2;
   }
 
+  /**
+   * Promove um peão para uma peça especificada após um movimento de promoção válido.
+   *
+   * @param piece           a peça para a qual o peão será promovido
+   * @param initialPosition a posição inicial do peão
+   * @param targetPosition  a posição alvo do peão
+   */
   public void promotePawn(String piece, Position initialPosition, Position targetPosition) {
     if(this.board.checkPromotion(initialPosition, targetPosition)) {
       this.board.pawnPromotion(piece, targetPosition);

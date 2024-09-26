@@ -6,7 +6,7 @@ import exceptions.*;
 import pieces.Piece;
 
 /**
- * Classe que define como funciona o tabuleiro do xadrez
+ * Classe que define como funciona o tabuleiro
  */
 public abstract class Board {
   protected Piece[][] board; // Primeiro [] representa a linha e o Segundo [] representa a coluna

@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import board.Position;
 import enums.Color;
 import exceptions.PieceException;
-import game.Player;
 import game.UI;
 import pieces.chess.Pawn;
 
+/**
+ * Classe que define a interface do jogo de xadrez
+ */
 public class ChessUI extends UI {
   private ChessGame game;
 
@@ -28,18 +30,15 @@ public class ChessUI extends UI {
     return this.game;
   }
 
-  public Player decidePlayerToMove(int iterator) {
-    if (iterator % 2 == 0) {
-      return game.getPlayer1();
-    } else {
-      return game.getPlayer2();
-    }
-  }
-
-  public void printBoard() {
-    System.out.println(game);
-  }
-
+  /**
+   * Verifica se o último movimento do jogo é uma promoção de peão e solicita ao jogador que escolha
+   * qual peça promover.
+   *
+   * Essa função recupera o último movimento do tabuleiro do jogo e verifica se a posição de destino
+   * está na primeira ou última linha do tabuleiro e se a peça na posição de destino é um peão. Se
+   * ambas as condições forem atendidas, solicita ao jogador que escolha qual peça promover o peão.
+   * A entrada do jogador é passada para o método promotePawn do jogo, que realiza a promoção.
+   */
   public void checkPawnPromotion(){
     ArrayList<Position> lastMovements = game.getBoard().getLastMovement();
     if((lastMovements.get(1).getRow() == 7 || lastMovements.get(1).getRow() == 0)

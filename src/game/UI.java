@@ -5,6 +5,9 @@ import java.util.Scanner;
 import board.Position;
 import enums.Color;
 
+/**
+ * Classe que define a interface do jogo
+ */
 public abstract class UI {
   protected Scanner sc = new Scanner(System.in);
   protected String red = "\u001B[31m";
@@ -15,6 +18,12 @@ public abstract class UI {
   
   public abstract Game getGame();
 
+  /**
+   * Decida qual jogador é a vez com base no iterador atual.
+   *
+   * @param iterator  o número atual da rodada
+   * @return          o jogador cuja vez é
+   */
   public Player decidePlayerToMove(int iterator) {
     if (iterator % 2 == 0) {
       return getGame().getPlayer1();
@@ -27,6 +36,12 @@ public abstract class UI {
     System.out.println(getGame());
   }
 
+  /**
+   * Trata a ação do jogador, que pode ser mover uma peça ou desistir do jogo.
+   * 
+   * @param playerToMove o jogador cuja é a vez
+   * @return -1 se o jogador desistir, 0 se a jogada for cancelada e 1 se a jogada for bem-sucedida
+   */
   public int action(Player playerToMove) {
     String playerColor = playerToMove.getColor().equals(Color.WHITE) ? bold : gray;
     System.out.print(playerColor + "Digite a posição da peça que voce deseja mover " + playerToMove + ": " + reset);
@@ -60,6 +75,11 @@ public abstract class UI {
     return 1;
   }
 
+  /**
+   * Verifica se o jogo chegou ao fim.
+   *
+   * @return true se o jogo chegou ao fim, false caso contrário
+   */
   public boolean checkEndGame() {
     Player winner = getGame().endGame();
     if(winner != null) {

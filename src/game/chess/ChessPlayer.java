@@ -5,7 +5,7 @@ import pieces.Piece;
 import pieces.chess.King;
 
 /**
- * Classe que define como funciona o jogador
+ * Classe que define como funciona o jogador de xadrez
  */
 public class ChessPlayer extends Player {
 

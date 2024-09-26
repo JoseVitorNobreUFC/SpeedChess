@@ -3,13 +3,25 @@ package logic.chess;
 import board.Position;
 import pieces.Piece;
 import pieces.chess.*;
-
-import java.util.ArrayList;
 import java.util.Stack;
+
+/**
+ * Classe que controla o movimento das peças de xadrez
+ */
 public class ChessMovement{
-  private static Stack<Position> lastPositions = new Stack<Position>();
+  private static Stack<Position> lastPositions = new Stack<Position>(); // Isso pode ser só uma Position mesmo, mas estou com preguiça de mudar
   public static Piece lastPieceTaken = null;
 
+    /**
+     * Move uma peça de xadrez de uma posição inicial para uma posição alvo no tabuleiro.
+     * 
+     * Essa função verifica movimentos especiais como en passant e roque, e atualiza o tabuleiro de acordo.
+     * 
+     * @param  board            o estado atual do tabuleiro de xadrez
+     * @param  initialPosition  a posição da peça a ser movida
+     * @param  targetPosition   a posição onde a peça será movida
+     * @return                  o tabuleiro atualizado após o movimento
+     */
   public static Piece[][] moveChessPiece(Piece[][] board, Position initialPosition, Position targetPosition) {
     if(checkEnPassant(board, initialPosition, targetPosition)) {
       return EnPassant(board, initialPosition, targetPosition);
@@ -34,10 +46,17 @@ public class ChessMovement{
     }
     board[initialPosition.getRow()][initialPosition.getColumn()] = null;
     
-    System.out.println(getAllPawnsData(board));
     return board;
   }
 
+  /**
+   * Realiza o movimento especial de En Passant no tabuleiro de xadrez.
+   * 
+   * @param  board            o estado atual do tabuleiro de xadrez
+   * @param  initialPosition  a posição da peça a ser movida
+   * @param  targetPosition   a posição onde a peça será movida
+   * @return                  o tabuleiro atualizado após o movimento
+   */
   public static Piece[][] EnPassant(Piece[][] board, Position initialPosition, Position targetPosition){
     Position lastPosition = lastPositions.pop();
     lastPieceTaken = board[lastPosition.getRow()][lastPosition.getColumn()];
@@ -53,6 +72,14 @@ public class ChessMovement{
   }
 
 
+  /**
+   * Verifica se o movimento especial de En Passant é válido.
+   * 
+   * @param  board            o estado atual do tabuleiro de xadrez
+   * @param  initialPosition  a posição inicial da peça que está tentando realizar o En Passant
+   * @param  targetPosition   a posição alvo da peça que está tentando realizar o En Passant
+   * @return                  true se o En Passant é válido, false caso contrário
+   */
   private static boolean checkEnPassant(Piece[][] board, Position initialPosition, Position targetPosition){
     if(lastPositions.isEmpty()) return false;
     Position lastPosition = lastPositions.firstElement();
@@ -68,6 +95,15 @@ public class ChessMovement{
     return false;
   }
 
+  /**
+   * Modifica os valores internos da peça peão no tabuleiro para fazer o En Passant ser verificavel, além de também
+   * ajudar na validação do movimento do peão
+   *
+   * @param  board            o estado atual do tabuleiro de xadrez
+   * @param  initialPosition  a posição inicial do peão
+   * @param  targetPosition   a posição alvo do peão
+   * @return                  o peão movido, ou null se o movimento não for válido
+   */
   public static Pawn checkPawnMovement(Piece[][] board, Position initialPosition, Position targetPosition){
     Pawn pawn = null;
     if (board[initialPosition.getRow()][initialPosition.getColumn()] instanceof Pawn) {
@@ -81,17 +117,5 @@ public class ChessMovement{
       lastPositions.addFirst(targetPosition);
     }
     return pawn;
-  }
-
-  public static ArrayList<String> getAllPawnsData(Piece[][] board) {
-    ArrayList<String> pawnsData = new ArrayList<String>();
-    for(int row = 0; row < 8; row++) {
-      for(int column = 0; column < 8; column++) {
-        if(board[row][column] instanceof Pawn) {
-          pawnsData.add(row + "" + column + " " + board[row][column].getColor() + " " + ((Pawn) board[row][column]).isEnPassantPossible());
-        }
-      }
-    }
-    return pawnsData;
   }
 }

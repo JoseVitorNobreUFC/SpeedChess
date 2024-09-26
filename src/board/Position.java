@@ -9,12 +9,6 @@ public class Position {
   private int row;
   private int column;
 
-  // Ainda não sei se irei usar todos esses 3 construtores, mas eu acho que sim
-  public Position(char columnLetter, int row) {
-    this.row = row - 1; // Ajustando para posição em array
-    this.column = convertColumnLetterToNumber(columnLetter);
-  }
-
   public Position(String position) {
     if(position.length() != 2) {
       throw new PositionException("\nERRO!!!! Posição inválida\n");
@@ -27,22 +21,27 @@ public class Position {
     return row;
   }
 
-  public void setRow(int row) {
-    this.row = row - 1; // Ajustando para posição em array
-  }
-
   public int getColumn() {
     return column;
   }
 
-  public void setColumn(int column) {
-    this.column = column - 1; // Ajustando para posição em array
-  }
-
+  /**
+   * Verifica se uma posição é válida
+   * 
+   * @param position Posição
+   * @return Se a posição é válida
+   */
   public static boolean isValidPosition(Position position) {
     return position.getRow() >= 0 && position.getRow() < 8 && position.getColumn() >= 0 && position.getColumn() < 8;
   }
 
+  /**
+   * Calcula a distância entre duas coordenadas
+   * 
+   * @param position1 Primeira coordenada
+   * @param position2 Segunda coordenada
+   * @return Distância entre as coordenadas
+   */
   public static int positionsDistance(Position position1, Position position2) {
     if(position1.getRow() != position2.getRow() && position1.getColumn() != position2.getColumn()) {
       return (Math.abs(position1.getRow() - position2.getRow()) + Math.abs(position1.getColumn() - position2

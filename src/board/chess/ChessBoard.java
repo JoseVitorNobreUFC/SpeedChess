@@ -8,6 +8,9 @@ import logic.chess.ChessMovement;
 import pieces.Piece;
 import pieces.chess.*;
 
+/**
+ * Classe que define como funciona o tabuleiro de xadrez
+ */
 public class ChessBoard extends Board {
   public ChessBoard() {
     super(8, 8);

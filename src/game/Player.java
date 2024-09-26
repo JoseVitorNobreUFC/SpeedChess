@@ -31,6 +31,11 @@ public abstract class Player {
     this.pieces.add(piece);
   }
 
+  /**
+   * Retorna uma representação em string de todas as peças que um jogador tem.
+   * 
+   * @return Uma string separada por vírgulas de todas as peças.
+   */
   public String getPieces() {
     String pieces = "";
     for(int i = 0; i < this.pieces.size(); i++) {
