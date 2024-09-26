@@ -1,11 +1,12 @@
 import exceptions.*;
 import game.*;
+import game.chess.ChessUI;
 
 public class App {
     final static String reset = "\u001B[0m";
     final static String red = "\u001B[31m";
     public static void main(String[] args) throws Exception {
-        UI aplicacao = new UI();
+        ChessUI aplicacao = new ChessUI();
         int iterator = 0;
         while (!aplicacao.checkEndGame()) {
             try {

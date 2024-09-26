@@ -3,19 +3,20 @@ package game;
 import java.util.ArrayList;
 
 import enums.Color;
+import pieces.Piece;
 import pieces.chess.ChessPiece;
 
 /**
  * Classe que define como funciona o jogador
  */
-public class Player {
-  private String name;
-  private Color color;
-  private ArrayList<ChessPiece> pieces;
+public abstract class Player {
+  protected String name;
+  protected Color color;
+  protected ArrayList<Piece> pieces;
 
   public Player(String name) {
     this.name = name;
-    this.pieces = new ArrayList<ChessPiece>();
+    this.pieces = new ArrayList<Piece>();
   }
 
   public void setColor(Color color) {
@@ -39,15 +40,6 @@ public class Player {
       }
     }
     return pieces;
-  }
-  
-  public boolean hasKing() {
-    for(ChessPiece piece : this.pieces) {
-      if(piece.getPieceName().equals("King")) {
-        return true;
-      }
-    }
-    return false;
   }
 
   @Override

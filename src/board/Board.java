@@ -2,66 +2,33 @@ package board;
 
 import java.util.ArrayList;
 
-import enums.Color;
 import exceptions.*;
-import pieces.chess.*;
+import pieces.Piece;
 
 /**
  * Classe que define como funciona o tabuleiro do xadrez
  */
-public class Board {
-  private ChessPiece[][] board; // Primeiro [] representa a linha e o Segundo [] representa a coluna
-  private ArrayList<Position> lastMovement;
+public abstract class Board {
+  protected Piece[][] board; // Primeiro [] representa a linha e o Segundo [] representa a coluna
+  protected ArrayList<Position> lastMovement;
+  private int rowLength, columnLength;
 
   private final String cyan = "\u001B[36m";
   private final String reset = "\u001B[0m";
   private final String yellow = "\u001B[33m";
 
-  public Board() {
-    board = new ChessPiece[8][8];
-    for (int i = 0; i < 8; i++) {
-      for (int j = 0; j < 8; j++) {
+  public Board(int rowLength, int columnLength) {
+    this.rowLength = rowLength;
+    this.columnLength = columnLength;
+    board = new Piece[rowLength][columnLength];
+    for (int i = 0; i < rowLength; i++) {
+      for (int j = 0; j < columnLength; j++) {
         board[i][j] = null;
       }
     }
     this.lastMovement = new ArrayList<Position>();
-
-    initBoard();
   }
 
-  /**
-   * Está função vai inicializar todas as peças do tabuleiro, como temos certeza
-   * da posição delas, não existe a necessidade
-   * de chamar uma função para verificar se a posição é valida
-   */
-  private void initBoard() {
-    // Criando os peões
-    for (int i = 0; i < 8; i++) {
-      board[1][i] = new Pawn(Color.WHITE);
-      board[6][i] = new Pawn(Color.BLACK);
-    }
-
-    // Criando as peças brancas
-    board[0][0] = new Rook(Color.WHITE);
-    board[0][1] = new Knight(Color.WHITE);
-    board[0][2] = new Bishop(Color.WHITE);
-    board[0][3] = new Queen(Color.WHITE);
-    board[0][4] = new King(Color.WHITE);
-    board[0][5] = new Bishop(Color.WHITE);
-    board[0][6] = new Knight(Color.WHITE);
-    board[0][7] = new Rook(Color.WHITE);
-
-    // Criando as peças pretas
-    board[7][0] = new Rook(Color.BLACK);
-    board[7][1] = new Knight(Color.BLACK);
-    board[7][2] = new Bishop(Color.BLACK);
-    board[7][3] = new Queen(Color.BLACK);
-    board[7][4] = new King(Color.BLACK);
-    board[7][5] = new Bishop(Color.BLACK);
-    board[7][6] = new Knight(Color.BLACK);
-    board[7][7] = new Rook(Color.BLACK);
-
-  }
 
   /**
    * Essa função tem como objetivo analisar a movimentação de uma peça, lançando
@@ -73,7 +40,7 @@ public class Board {
    * @throws PositionException Caso a posição inicial for nula
    * @throws PieceException    Caso o movimento da peça seja invalido
    */
-  private void analyseMovement(Position initialPosition, Position targetPosition) {
+  protected void analyseMovement(Position initialPosition, Position targetPosition) {
     if (!Position.isValidPosition(targetPosition) || !Position.isValidPosition(initialPosition)) {
       throw new BoardException("\nERRO!!!! Posição fora do tabuleiro\n");
     }
@@ -103,7 +70,7 @@ public class Board {
    * @throws BoardException    Caso uma das posições seja fora do tabuleiro
    * @throws PositionException Caso a posição inicial for nula
    */
-  private void analyseMovement(Position position) {
+  protected void analyseMovement(Position position) {
     if (!Position.isValidPosition(position)) {
       throw new BoardException("\nERRO!!!! Posição fora do tabuleiro\n");
     }
@@ -119,25 +86,9 @@ public class Board {
    * @param initialPosition Posição inicial da peça
    * @param targetPosition  Posição final da peça
    */
-  public ChessPiece movePiece(Position initialPosition, Position targetPosition) { // Lembrar de mover internamente a
-                                                                                   // posição da peça
-    this.analyseMovement(initialPosition, targetPosition);
+  public abstract Piece movePiece(Position initialPosition, Position targetPosition);
 
-    if (board[initialPosition.getRow()][initialPosition.getColumn()].isFirstMove()) {
-      board[initialPosition.getRow()][initialPosition.getColumn()].takeFirstMove();
-    }
-    ChessPiece piece = board[targetPosition.getRow()][targetPosition.getColumn()];
-    board[targetPosition.getRow()][targetPosition.getColumn()] = board[initialPosition.getRow()][initialPosition
-        .getColumn()];
-    board[initialPosition.getRow()][initialPosition.getColumn()] = null;
-
-    this.lastMovement.clear();
-    this.lastMovement.add(initialPosition);
-    this.lastMovement.add(targetPosition);
-    return piece;
-  }
-
-  private boolean isPositionNull(Position position) {
+  protected boolean isPositionNull(Position position) {
     return board[position.getRow()][position.getColumn()] == null;
   }
 
@@ -150,9 +101,9 @@ public class Board {
   public String toString() {
     String s = "    A    B    C    D    E    F    G    H\n";
     ArrayList<String> lastMovement = convertLastMovement();
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < this.rowLength; i++) {
       s += (i + 1) + " ";
-      for (int j = 0; j < 8; j++) {
+      for (int j = 0; j < this.columnLength; j++) {
         if (board[i][j] != null) {
           if (lastMovement.contains(i + "" + j)) {
             s += yellow + "\u27EA" + reset + board[i][j] + yellow + " \u27EB " + reset;
@@ -184,9 +135,9 @@ public class Board {
     ArrayList<String> lastMovement = convertLastMovement();
     ArrayList<String> possibleMoves = board[position.getRow()][position.getColumn()].getAvailableMoves(board, position);
     String s = "    A    B    C    D    E    F    G    H\n";
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < this.rowLength; i++) {
       s += (i + 1) + " ";
-      for (int j = 0; j < 8; j++) {
+      for (int j = 0; j < this.columnLength; j++) {
         // Verifica os movimentos possíveis
         if (possibleMoves.contains(i + "" + j)) {
           if (board[i][j] != null) {
@@ -212,58 +163,26 @@ public class Board {
    * @param position Posição da peça
    * @return A peça contida naquela posição
    */
-  public ChessPiece getPiece(Position position) {
+  public Piece getPiece(Position position) {
     this.analyseMovement(position);
     return board[position.getRow()][position.getColumn()];
   }
 
-  /**
-   * Verifica se o peão pode ser promovido, através da checagem de se ele está na
-   * linha 0 ou 7
-   * 
-   * @param initialPosition Posição inicial da peça
-   * @param targetPosition  Posição final da peça
-   * @return Retorna um valor booleano
-   */
-  public boolean checkPromotion(Position initialPosition, Position targetPosition) {
-    if (board[targetPosition.getRow()][targetPosition.getColumn()].getPieceName().equals("Pawn")
-        && (targetPosition.getRow() == 0 || targetPosition.getRow() == 7)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   /**
-   * Promova um peão
-   * 
-   * @param piece Peça que vai ser promovida
-   * @param pawnPosition Posição da peça
+   * Retorn o array que contem o ultimo movimento feito
+   *
+   * @return Retorna um array de posicoes
    */
-  public void pawnPromotion(String piece, Position pawnPosition) {
-    Color color = board[pawnPosition.getRow()][pawnPosition.getColumn()].getColor();
-    switch (piece) {
-      case "0":
-        board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Queen(color);
-        break;
-      case "1":
-        board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Rook(color);
-        break;
-      case "2":
-        board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Knight(color);
-        break;
-      case "3":
-        board[pawnPosition.getRow()][pawnPosition.getColumn()] = new Bishop(color);
-        break;
-      default:
-        throw new PieceException("\nERRO!!! Valor invalido\n");
-    }
-  }
-
   public ArrayList<Position> getLastMovement() {
     return this.lastMovement;
   }
 
+  /**
+   * Converte o array de posicoes em um array de String
+   *
+   * @return Retorna um arrayList de String 
+   */
   private ArrayList<String> convertLastMovement() {
     ArrayList<String> lastMovements = new ArrayList<String>();
     if (this.lastMovement.size() == 0) {

@@ -7,7 +7,8 @@ import enums.Color;
 import pieces.Piece;
 
 public class King extends ChessPiece {
-  
+  private boolean firstMove = true;
+
   public King(Color color) {
     super(color);
   }
@@ -65,9 +66,27 @@ public class King extends ChessPiece {
   public String toString() {
     return this.getColor().equals(Color.WHITE) ? "\u001b[1m\u265A\u001B[0m" : "\u001b[1m\u001B[90m\u2654\u001B[0m";
   }
-  
-  @Override
-  public String getPieceName() {
-    return "King";
+
+  private ArrayList<String> checkDangerArea(Piece[][] board, Position kingPosition, ArrayList<String> availablePositions) {
+    ArrayList<String> dangerPositions = new ArrayList<String>();
+
+    int row = kingPosition.getRow();
+    int column = kingPosition.getColumn();
+
+
+    return dangerPositions;
+  }
+
+  private boolean checkDangerSpot(Piece[][] board, Position kingPosition, String spot) {
+    
+    return false;
+  }
+
+  public boolean isFirstMove() {  
+    return this.firstMove;
+  }
+
+  public void setFirstMove(boolean firstMove) {
+    this.firstMove = firstMove;
   }
 }

@@ -43,6 +43,15 @@ public class Position {
     return position.getRow() >= 0 && position.getRow() < 8 && position.getColumn() >= 0 && position.getColumn() < 8;
   }
 
+  public static int positionsDistance(Position position1, Position position2) {
+    if(position1.getRow() != position2.getRow() && position1.getColumn() != position2.getColumn()) {
+      return (Math.abs(position1.getRow() - position2.getRow()) + Math.abs(position1.getColumn() - position2
+      .getColumn())) / 2;
+    }
+    return Math.abs(position1.getRow() - position2.getRow()) + Math.abs(position1.getColumn() - position2
+        .getColumn());
+  }
+
   /**
    * Converte uma coluna em letra para um número, independente se a letra for maiuscula ou minuscula
    * 

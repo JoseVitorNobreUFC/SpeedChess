@@ -7,6 +7,7 @@ import enums.Color;
 import pieces.Piece;
 
 public class Rook extends ChessPiece{
+  private boolean firstMove = true;
 
   public Rook(Color color) {
     super(color);
@@ -60,9 +61,12 @@ public class Rook extends ChessPiece{
   public String toString() {
     return this.getColor().equals(Color.WHITE) ? "\u001b[1m\u265C\u001B[0m" : "\u001b[1m\u001B[90m\u2656\u001B[0m";
   }
-  
-  @Override
-  public String getPieceName() {
-    return "Rook";
+
+  public boolean isFirstMove() {
+    return firstMove;
+  }
+
+  public void setFirstMove(boolean firstMove) {
+    this.firstMove = firstMove;
   }
 }

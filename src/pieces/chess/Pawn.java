@@ -10,6 +10,8 @@ import pieces.Piece;
  * Classe que define o comportamento de um peão
  */
 public class Pawn extends ChessPiece{
+  private boolean firstMove = true;
+  private boolean enPassantPossible = false;
 
   public Pawn(Color color) {
     super(color);
@@ -24,6 +26,7 @@ public class Pawn extends ChessPiece{
     } else{
       availablePositions.addAll(getMovesInADirection(board, position, -1));
     }
+    availablePositions.addAll(this.getEnPassant(board, position));
     return availablePositions;
   }
 
@@ -64,8 +67,59 @@ public class Pawn extends ChessPiece{
     return this.getColor().equals(Color.WHITE) ? "\u001b[1m\u265F\u001B[0m" : "\u001b[1m\u001B[90m\u2659\u001B[0m";
   }
 
-  @Override
-  public String getPieceName() {
-    return "Pawn";
+  private ArrayList<String> getEnPassant(Piece[][] board, Position position) {
+    ArrayList<String> availablePositions = new ArrayList<String>();
+    int row = position.getRow();
+    int column = position.getColumn();
+    Color color = board[row][column].getColor();
+
+    if(color.equals(Color.WHITE) && row == 4) {
+      Pawn pawn;
+      if(board[row][column - 1] instanceof Pawn) {
+        pawn = (Pawn) board[row][column - 1];
+        if(pawn.isEnPassantPossible()) {
+          availablePositions.add((row + 1) + "" + (column - 1));
+          availablePositions.add("En Passant");
+        }
+      } else if(board[row][column + 1] instanceof Pawn) {
+        pawn = (Pawn) board[row][column + 1];
+        if(pawn.isEnPassantPossible()) {
+          availablePositions.add((row + 1) + "" + (column + 1));
+          availablePositions.add("En Passant");
+        }
+      }
+    } else if(color.equals(Color.BLACK) && row == 3) {
+      Pawn pawn;
+      if(board[row][column - 1] instanceof Pawn) {
+        pawn = (Pawn) board[row][column - 1];
+        if(pawn.isEnPassantPossible()) {
+          availablePositions.add((row - 1) + "" + (column - 1));
+          availablePositions.add("En Passant");
+        }
+      } else if(board[row][column + 1] instanceof Pawn) {
+        pawn = (Pawn) board[row][column + 1];
+        if(pawn.isEnPassantPossible()) {
+          availablePositions.add((row - 1) + "" + (column + 1));
+          availablePositions.add("En Passant");
+        }
+      }
+    }
+    return availablePositions;
+  }
+
+  public boolean isFirstMove() {
+    return this.firstMove;
+  }
+
+  public void setFirstMove(boolean firstMove) {
+    this.firstMove = firstMove;
+  }
+
+  public boolean isEnPassantPossible() {
+    return this.enPassantPossible;
+  }
+
+  public void setEnPassantPossible(boolean enPassantPossible) {
+    this.enPassantPossible = enPassantPossible;
   }
 }
