@@ -6,10 +6,10 @@ import exceptions.PlayerException;
 
 public abstract class Game {
   
-  private String reset = "\u001B[0m";
-  private String bold = "\u001b[1m";
-  private String gray = bold + "\u001B[90m";
-
+  protected String reset = "\u001B[0m";
+  protected String bold = "\u001b[1m";
+  protected String gray = bold + "\u001B[90m";
+  
   public abstract Board getBoard();
 
   public abstract Player getPlayer1();

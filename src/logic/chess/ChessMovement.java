@@ -1,7 +1,6 @@
 package logic.chess;
 
 import board.Position;
-import pieces.Piece;
 import pieces.chess.*;
 import java.util.Stack;
 
@@ -10,7 +9,7 @@ import java.util.Stack;
  */
 public class ChessMovement{
   private static Stack<Position> lastPositions = new Stack<Position>(); // Isso pode ser só uma Position mesmo, mas estou com preguiça de mudar
-  public static Piece lastPieceTaken = null;
+  public static ChessPiece lastPieceTaken = null;
 
     /**
      * Move uma peça de xadrez de uma posição inicial para uma posição alvo no tabuleiro.
@@ -22,7 +21,7 @@ public class ChessMovement{
      * @param  targetPosition   a posição onde a peça será movida
      * @return                  o tabuleiro atualizado após o movimento
      */
-  public static Piece[][] moveChessPiece(Piece[][] board, Position initialPosition, Position targetPosition) {
+  public static ChessPiece[][] moveChessPiece(ChessPiece[][] board, Position initialPosition, Position targetPosition) {
     if(checkEnPassant(board, initialPosition, targetPosition)) {
       return EnPassant(board, initialPosition, targetPosition);
     } else {
@@ -57,7 +56,7 @@ public class ChessMovement{
    * @param  targetPosition   a posição onde a peça será movida
    * @return                  o tabuleiro atualizado após o movimento
    */
-  public static Piece[][] EnPassant(Piece[][] board, Position initialPosition, Position targetPosition){
+  public static ChessPiece[][] EnPassant(ChessPiece[][] board, Position initialPosition, Position targetPosition){
     Position lastPosition = lastPositions.pop();
     lastPieceTaken = board[lastPosition.getRow()][lastPosition.getColumn()];
     board[lastPosition.getRow()][lastPosition.getColumn()] = null;
@@ -66,7 +65,7 @@ public class ChessMovement{
     return board;
   }
 
-  public static Piece[][] Castling(Piece[][] board, Position initialPosition, Position targetPosition){
+  public static ChessPiece[][] Castling(ChessPiece[][] board, Position initialPosition, Position targetPosition){
     
     return board;
   }
@@ -80,7 +79,7 @@ public class ChessMovement{
    * @param  targetPosition   a posição alvo da peça que está tentando realizar o En Passant
    * @return                  true se o En Passant é válido, false caso contrário
    */
-  private static boolean checkEnPassant(Piece[][] board, Position initialPosition, Position targetPosition){
+  private static boolean checkEnPassant(ChessPiece[][] board, Position initialPosition, Position targetPosition){
     if(lastPositions.isEmpty()) return false;
     Position lastPosition = lastPositions.firstElement();
     if(Position.positionsDistance(targetPosition, initialPosition) == 2) return false;
@@ -91,7 +90,7 @@ public class ChessMovement{
     return false;
   }
 
-  private static boolean checkCastling(Piece[][] board, Position initialPosition, Position targetPosition){
+  private static boolean checkCastling(ChessPiece[][] board, Position initialPosition, Position targetPosition){
     return false;
   }
 
@@ -104,7 +103,7 @@ public class ChessMovement{
    * @param  targetPosition   a posição alvo do peão
    * @return                  o peão movido, ou null se o movimento não for válido
    */
-  public static Pawn checkPawnMovement(Piece[][] board, Position initialPosition, Position targetPosition){
+  public static Pawn checkPawnMovement(ChessPiece[][] board, Position initialPosition, Position targetPosition){
     Pawn pawn = null;
     if (board[initialPosition.getRow()][initialPosition.getColumn()] instanceof Pawn) {
       pawn = (Pawn) board[initialPosition.getRow()][initialPosition.getColumn()];
@@ -114,7 +113,7 @@ public class ChessMovement{
         } 
         pawn.setFirstMove(false);
       }
-      lastPositions.addFirst(targetPosition);
+      lastPositions.add(targetPosition); // Aqui pode dar merda, não sei
     }
     return pawn;
   }

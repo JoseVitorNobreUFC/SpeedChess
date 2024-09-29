@@ -21,6 +21,9 @@ public class Bishop extends ChessPiece {
     availablePositions.addAll(getMovesInADirection(board, position, 1, -1));
     availablePositions.addAll(getMovesInADirection(board, position, 1, 1));
     
+    if(availablePositions.isEmpty()) {
+      return null;
+    }
     return availablePositions;
   }
 

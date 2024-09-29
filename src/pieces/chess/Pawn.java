@@ -27,6 +27,9 @@ public class Pawn extends ChessPiece{
       availablePositions.addAll(getMovesInADirection(board, position, -1));
     }
     availablePositions.addAll(this.getEnPassant(board, position));
+    if(availablePositions.isEmpty()) {
+      return null;
+    }
     return availablePositions;
   }
 
@@ -79,13 +82,11 @@ public class Pawn extends ChessPiece{
         pawn = (Pawn) board[row][column - 1];
         if(pawn.isEnPassantPossible()) {
           availablePositions.add((row + 1) + "" + (column - 1));
-          availablePositions.add("En Passant");
         }
       } else if(board[row][column + 1] instanceof Pawn) {
         pawn = (Pawn) board[row][column + 1];
         if(pawn.isEnPassantPossible()) {
           availablePositions.add((row + 1) + "" + (column + 1));
-          availablePositions.add("En Passant");
         }
       }
     } else if(color.equals(Color.BLACK) && row == 3) {
@@ -94,13 +95,11 @@ public class Pawn extends ChessPiece{
         pawn = (Pawn) board[row][column - 1];
         if(pawn.isEnPassantPossible()) {
           availablePositions.add((row - 1) + "" + (column - 1));
-          availablePositions.add("En Passant");
         }
       } else if(board[row][column + 1] instanceof Pawn) {
         pawn = (Pawn) board[row][column + 1];
         if(pawn.isEnPassantPossible()) {
           availablePositions.add((row - 1) + "" + (column + 1));
-          availablePositions.add("En Passant");
         }
       }
     }

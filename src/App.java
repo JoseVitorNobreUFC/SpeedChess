@@ -11,6 +11,7 @@ public class App {
         while (!aplicacao.checkEndGame()) {
             try {
                 Player playerToMove = aplicacao.decidePlayerToMove(iterator);
+                aplicacao.processCheck();
 
                 aplicacao.printBoard();
 

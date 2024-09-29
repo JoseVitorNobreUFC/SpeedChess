@@ -25,6 +25,10 @@ public class Knight extends ChessPiece {
     availablePositions.add(getMovesInADirection(board, position, -1, 2));
     availablePositions.add(getMovesInADirection(board, position, -1, -2));
 
+    availablePositions.removeIf(string -> string.equals(""));
+    if(availablePositions.isEmpty()) {
+      return null;
+    }
     return availablePositions;
   }
 

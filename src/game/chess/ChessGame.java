@@ -15,6 +15,8 @@ public class ChessGame extends Game {
   private ChessPlayer player2;
   private ChessBoard board;
 
+  private final String yellow = "\u001B[33m";
+
   public ChessGame(String player1, String player2) {
     this.player1 = new ChessPlayer(player1);
     this.player2 = new ChessPlayer(player2);
@@ -70,5 +72,29 @@ public class ChessGame extends Game {
       this.board.pawnPromotion(piece, targetPosition);
     }
   }
-  //TODO: Chamar função que verifica check-mate
+  
+  public void fixCheck(){
+    if(this.board.getCheckPiecePosition() == null){
+      return;
+    }
+
+    Position checkPiecePosition = this.board.getCheckPiecePosition();
+    ChessPiece piece = (ChessPiece) this.board.getPiece(checkPiecePosition);
+    String color = piece.getColor().equals(Color.WHITE) ? "preto" : "branco";
+    while(this.board.getCheckPiecePosition() != null){
+      System.out.println(yellow + bold + "Rei " + color + " se encontra em cheque!" + reset);
+      System.out.println(this.board.showCheck());
+      break;
+    }
+  }
+
+  public boolean analyseCheck() {
+    return this.board.getCheckPiecePosition() != null;
+  }
+  // Casos de Empate:
+  // 1. Empate por acordo
+  // 2. Empate por afogamento
+  // 3. Empate por tripla repetição
+  // 4. Empate por insuficiencia de material
+  // 5. Empate por 50 lances
 }

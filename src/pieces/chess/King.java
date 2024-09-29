@@ -8,6 +8,7 @@ import pieces.Piece;
 
 public class King extends ChessPiece {
   private boolean firstMove = true;
+  private boolean check = false;
 
   public King(Color color) {
     super(color);
@@ -29,6 +30,9 @@ public class King extends ChessPiece {
     availablePositions.addAll(getMoveInADirection(board, position, 0, -1));
     availablePositions.addAll(getMoveInADirection(board, position, 0, 1));
 
+    if(availablePositions.isEmpty()) {
+      return null;
+    }
     return availablePositions;
   }
 
@@ -67,17 +71,17 @@ public class King extends ChessPiece {
     return this.getColor().equals(Color.WHITE) ? "\u001b[1m\u265A\u001B[0m" : "\u001b[1m\u001B[90m\u2654\u001B[0m";
   }
 
-  private ArrayList<String> checkDangerArea(Piece[][] board, Position kingPosition, ArrayList<String> availablePositions) {
-    ArrayList<String> dangerPositions = new ArrayList<String>();
-
-    int row = kingPosition.getRow();
-    int column = kingPosition.getColumn();
+  private ArrayList<String> checkSafePositions(Piece[][] board, Position kingPosition, ArrayList<String> availablePositions) {
+    ArrayList<String> safePositions = availablePositions;
 
 
-    return dangerPositions;
+
+    return safePositions;
   }
 
   private boolean checkDangerSpot(Piece[][] board, Position kingPosition, String spot) {
+    int row = spot.charAt(0) - '0';
+    int column = spot.charAt(1) - '0';
     
     return false;
   }
@@ -88,5 +92,13 @@ public class King extends ChessPiece {
 
   public void setFirstMove(boolean firstMove) {
     this.firstMove = firstMove;
+  }
+
+  public boolean isCheck() {
+    return this.check;
+  }
+
+  public void setCheck(boolean check) {
+    this.check = check;
   }
 }

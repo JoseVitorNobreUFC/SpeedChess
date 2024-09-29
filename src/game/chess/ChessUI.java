@@ -64,4 +64,9 @@ public class ChessUI extends UI {
   }
 
   // TODO: Chamar função do game para verificar se o rei ficou em xeque
+  public void processCheck() {
+    if(this.game.analyseCheck()) {
+      this.game.fixCheck();
+    }
+  }
 }
