@@ -3,6 +3,5 @@ package factory;
 import pieces.Piece;
 
 public interface PieceFactory {
-  Piece createPiece(String type, String color);
+  <T extends Piece> T createPiece(String pieceType, String color, Class<T> pieceClass);
 }
-

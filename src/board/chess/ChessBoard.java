@@ -4,7 +4,7 @@ import board.Board;
 import board.Position;
 import enums.Color;
 import exceptions.PieceException;
-import factory.ChessPieceFactory;
+import factory.GenericPieceFactory;
 import factory.PieceFactory;
 import logic.chess.ChessMovement;
 import pieces.Piece;
@@ -38,34 +38,35 @@ public class ChessBoard extends Board {
    * de chamar uma função para verificar se a posição é valida
    */
   private void initBoard() {
-    PieceFactory factory = new ChessPieceFactory();
+    PieceFactory factory = new GenericPieceFactory();
 
     // Criando os peões
     for (int i = 0; i < 8; i++) {
-        board[1][i] = (ChessPiece) factory.createPiece("pawn", "white");
-        board[6][i] = (ChessPiece) factory.createPiece("pawn", "black");
+        board[1][i] = factory.createPiece("pawn", "white", ChessPiece.class);
+        board[6][i] = factory.createPiece("pawn", "black", ChessPiece.class);
     }
 
     // Criando as peças brancas
-    board[0][0] = (ChessPiece) factory.createPiece("rook", "white");
-    board[0][1] = (ChessPiece) factory.createPiece("knight", "white");
-    board[0][2] = (ChessPiece) factory.createPiece("bishop", "white");
-    board[0][3] = (ChessPiece) factory.createPiece("queen", "white");
-    board[0][4] = (ChessPiece) factory.createPiece("king", "white");
-    board[0][5] = (ChessPiece) factory.createPiece("bishop", "white");
-    board[0][6] = (ChessPiece) factory.createPiece("knight", "white");
-    board[0][7] = (ChessPiece) factory.createPiece("rook", "white");
+    board[0][0] = factory.createPiece("rook", "white", ChessPiece.class);
+    board[0][1] = factory.createPiece("knight", "white", ChessPiece.class);
+    board[0][2] = factory.createPiece("bishop", "white", ChessPiece.class);
+    board[0][3] = factory.createPiece("queen", "white", ChessPiece.class);
+    board[0][4] = factory.createPiece("king", "white", ChessPiece.class);
+    board[0][5] = factory.createPiece("bishop", "white", ChessPiece.class);
+    board[0][6] = factory.createPiece("knight", "white", ChessPiece.class);
+    board[0][7] = factory.createPiece("rook", "white", ChessPiece.class);
 
     // Criando as peças pretas
-    board[7][0] = (ChessPiece) factory.createPiece("rook", "black");
-    board[7][1] = (ChessPiece) factory.createPiece("knight", "black");
-    board[7][2] = (ChessPiece) factory.createPiece("bishop", "black");
-    board[7][3] = (ChessPiece) factory.createPiece("queen", "black");
-    board[7][4] = (ChessPiece) factory.createPiece("king", "black");
-    board[7][5] = (ChessPiece) factory.createPiece("bishop", "black");
-    board[7][6] = (ChessPiece) factory.createPiece("knight", "black");
-    board[7][7] = (ChessPiece) factory.createPiece("rook", "black");
+    board[7][0] = factory.createPiece("rook", "black", ChessPiece.class);
+    board[7][1] = factory.createPiece("knight", "black", ChessPiece.class);
+    board[7][2] = factory.createPiece("bishop", "black", ChessPiece.class);
+    board[7][3] = factory.createPiece("queen", "black", ChessPiece.class);
+    board[7][4] = factory.createPiece("king", "black", ChessPiece.class);
+    board[7][5] = factory.createPiece("bishop", "black", ChessPiece.class);
+    board[7][6] = factory.createPiece("knight", "black", ChessPiece.class);
+    board[7][7] = factory.createPiece("rook", "black", ChessPiece.class);
 }
+
 
   @Override
   public Piece[][] getBoard() {
